@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden; /* Para animações de hambúrgueres voadores */
+    text-align: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+}
+
+h1 {
+    color: #e84393; /* Rosa vibrante */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.disclaimer {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#thais-emoji-container {
+    font-size: 100px; /* Tamanho grande para o emoji */
+    margin: 20px 0;
+    position: relative;
+    height: 120px; /* Espaço para animação */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#thais-emoji {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
+    animation: idle-bob 2s infinite ease-in-out;
+}
+
+@keyframes idle-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.emoji-eating {
+    animation: eat-animation 0.5s ease-in-out !important; /* Sobrescreve idle-bob temporariamente */
+}
+
+@keyframes eat-animation {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.2) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    75% { transform: scale(1.2) rotate(-3deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+#weight-display {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #333;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#weight-display.updated {
+    animation: weight-flash 0.5s ease-out;
+}
+
+@keyframes weight-flash {
+    0% { background-color: #ffd700; transform: scale(1.05); } /* Dourado */
+    100% { background-color: #e9ecef; transform: scale(1); }
+}
+
+
+.feed-text {
+    font-size: 1.1em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.burger-button {
+    font-size: 2em; /* Emoji do hambúrguer maior */
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #333; /* Cor do emoji do hambúrguer */
+}
+
+.burger-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.burger-button:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.burger-button.white {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+.burger-button.yellow {
+    background-color: #ffc107; /* Amarelo */
+}
+.burger-button.orange {
+    background-color: #fd7e14; /* Laranja */
+}
+.burger-button.purple-neon {
+    background-color: #8A2BE2; /* Roxo base */
+    color: white; /* Para o emoji do hambúrguer ficar visível */
+    box-shadow: 0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 15px #c67dff, 0 0 20px #c67dff;
+    animation: neon-pulse 1.5s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from {
+        box-shadow: 0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 15px #c67dff, 0 0 20px #c67dff;
+    }
+    to {
+        box-shadow: 0 0 10px #8A2BE2, 0 0 20px #8A2BE2, 0 0 30px #c67dff, 0 0 40px #c67dff;
+    }
+}
+
+/* Animação do hambúrguer voando */
+#burger-animation-area {
+    position: fixed; /* Para cobrir a tela inteira */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para não interferir com os botões */
+    overflow: hidden;
+    z-index: 10;
+}
+
+.flying-burger {
+    position: absolute;
+    font-size: 2.5em; /* Tamanho do hambúrguer voador */
+    animation: fly-to-emoji 0.7s ease-in-out forwards;
+    opacity: 1;
+}
+
+@keyframes fly-to-emoji {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5) translate(var(--target-x), var(--target-y));
+    }
+}

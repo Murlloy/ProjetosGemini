@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuide do Dinossauro Emoji</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Meu Dinossauro Emoji</h1>
+
+        <div id="dino-display">
+            <!-- ALTERAÇÃO AQUI: Trocamos <img> por <div> -->
+            <div id="dino-emoji" class="dino-emoji-display">🦖</div>
+            <p id="dino-message">Olá! Cuide bem de mim!</p>
+        </div>
+
+        <div id="stats-container">
+            <div class="stat">
+                <label for="hunger-bar">Fome:</label>
+                <div class="progress-bar-container">
+                    <div id="hunger-bar" class="progress-bar"></div>
+                </div>
+                <span id="hunger-value">100</span>%
+            </div>
+            <div class="stat">
+                <label for="thirst-bar">Sede:</label>
+                <div class="progress-bar-container">
+                    <div id="thirst-bar" class="progress-bar"></div>
+                </div>
+                <span id="thirst-value">100</span>%
+            </div>
+            <div class="stat">
+                <label for="happiness-bar">Felicidade:</label>
+                <div class="progress-bar-container">
+                    <div id="happiness-bar" class="progress-bar"></div>
+                </div>
+                <span id="happiness-value">100</span>%
+            </div>
+        </div>
+
+        <div id="actions-container">
+            <button id="feed-button">Alimentar</button>
+            <button id="water-button">Dar Água</button>
+            <button id="play-button">Brincar</button>
+        </div>
+
+        <button id="restart-button" style="display:none;">Recomeçar</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fce4ec; /* Rosa claro Barbie */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Para o botão de gerar imagem ficar abaixo */
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 1000px; /* Aumentar um pouco */
+    width: 95%;
+}
+
+h1 {
+    color: #e91e63; /* Rosa choque */
+    margin-bottom: 15px;
+}
+
+.input-nome-container {
+    margin-bottom: 20px;
+}
+.input-nome-container label {
+    font-weight: bold;
+    color: #ad1457;
+    margin-right: 5px;
+}
+#barbieNomeInput {
+    padding: 8px;
+    border: 1px solid #f8bbd0;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.game-area {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start; /* Alinha Barbie e painel no topo */
+    margin-top: 10px;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+}
+
+.barbie-display-emoji {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Começar do topo */
+    width: 220px;
+    min-height: 350px; /* Altura para acomodar tudo */
+    border: 3px solid #f8bbd0;
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff9fa;
+    box-sizing: border-box;
+}
+
+.nome-da-barbie-display {
+    font-size: 1.4em;
+    color: #e91e63;
+    margin-top: 0;
+    margin-bottom: 10px;
+    word-break: break-word;
+}
+
+.barbie-emoji-part { /* Para cabeça e roupa principal */
+    font-size: 5rem; /* Ajuste se necessário */
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 5px; /* Espaço entre cabeça e corpo */
+    min-height: 60px; /* Garante espaço mesmo vazio */
+}
+
+.barbie-emoji-part-acessorio { /* Para maquiagem, sapatos, profissão */
+    font-size: 2.5rem; /* Menor que os principais */
+    line-height: 1;
+    text-align: center;
+    min-height: 30px; /* Garante espaço mesmo vazio */
+    margin-top: 5px;
+}
+
+
+.options-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 650px; /* Ajustar para mais opções */
+    width: 100%;
+}
+
+.options-category {
+    background-color: #fdf6f8;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #f8bbd0;
+}
+
+.options-category h2 {
+    margin-top: 0;
+    color: #ad1457;
+    border-bottom: 1px solid #f8bbd0;
+    padding-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.emoji-option {
+    font-size: 2rem; /* Reduzir um pouco para caber mais */
+    padding: 8px;
+    border: 2px solid #f8bbd0;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    line-height: 1;
+    min-width: 50px; /* Ajustar */
+    text-align: center;
+    user-select: none; /* Evitar seleção de texto do emoji */
+}
+.skin-tone-option {
+    font-size: 1.5rem; /* Modificadores de tom de pele podem ser menores */
+    padding: 10px 12px;
+}
+
+
+.emoji-option:hover {
+    background-color: #fce4ec;
+    border-color: #e91e63;
+    transform: translateY(-2px);
+}
+
+.emoji-option.selected {
+    background-color: #e91e63;
+    color: white;
+    border-color: #ad1457;
+}
+
+.emoji-option.clear-item {
+    font-size: 1.8rem; /* Ajustar tamanho do 🚫 */
+}
+
+#gerarImagemBtn {
+    background-color: #e91e63;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+#gerarImagemBtn:hover {
+    background-color: #ad1457;
+}
+
+#imagemGeradaContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px dashed #f8bbd0;
+    border-radius: 5px;
+    min-height: 100px;
+    width: 80%;
+    max-width: 400px; /* Limitar largura da imagem gerada */
+    background-color: #fff9fa;
+}
+#imagemGeradaContainer h3 {
+    margin-top: 0;
+    color: #ad1457;
+}
+#imagemGeradaContainer img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .game-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    .barbie-display-emoji {
+        margin-right: 0;
+        margin-bottom: 30px;
+        width: 200px; /* Um pouco menor em telas pequenas */
+    }
+    .options-panel {
+        max-width: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .barbie-emoji-part { font-size: 4rem; }
+    .barbie-emoji-part-acessorio { font-size: 2rem; }
+    .emoji-option { font-size: 1.8rem; min-width: 45px; padding: 6px; }
+    .skin-tone-option { font-size: 1.3rem; }
+    #barbieNomeInput { width: 150px; }
+}

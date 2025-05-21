@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbie Emoji Deluxe Dress Up 👑</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Arrume Sua Alteza Barbie! ✨</h1>
+
+        <div class="input-nome-container">
+            <label for="barbieNomeInput">Nome da Alteza:</label>
+            <input type="text" id="barbieNomeInput" value="Barbie">
+        </div>
+
+        <div class="game-area">
+            <div id="barbieLookCompleto" class="barbie-display-emoji">
+                <h2 id="barbieNomeDisplay" class="nome-da-barbie-display">Barbie</h2>
+                <div id="barbieEmojiCabeca" class="barbie-emoji-part">👱‍♀️</div>
+                <div id="barbieEmojiMaquiagem" class="barbie-emoji-part-acessorio"></div>
+                <div id="barbieEmojiRoupa" class="barbie-emoji-part">👗</div>
+                <div id="barbieEmojiSapatos" class="barbie-emoji-part-acessorio"></div>
+                <div id="barbieEmojiProfissao" class="barbie-emoji-part-acessorio"></div>
+            </div>
+
+            <div class="options-panel">
+                <!-- TONS DE PELE -->
+                <div class="options-category">
+                    <h2>Tons de Pele 🎨</h2>
+                    <div class="items">
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="">Original</button> <!-- Original (sem modificador) -->
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="🏻">🏻</button>
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="🏼">🏼</button>
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="🏽">🏽</button>
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="🏾">🏾</button>
+                        <button class="emoji-option skin-tone-option" data-type="pele" data-tone="🏿">🏿</button>
+                    </div>
+                </div>
+
+                <!-- CABELOS -->
+                <div class="options-category">
+                    <h2>Cabelos 💇‍♀️</h2>
+                    <div class="items">
+                        <button class="emoji-option" data-type="cabelo" title="Loiro Longo">👱</button> <!-- Emoji base sem gênero explícito para aplicar tom de pele -->
+                        <button class="emoji-option" data-type="cabelo" title="Cacheado Curto">👩‍🦱</button>
+                        <button class="emoji-option" data-type="cabelo" title="Moderno Colorido">👩‍🎤</button>
+                        <button class="emoji-option" data-type="cabelo" title="Coque Elegante">👱‍♀️</button> <!-- Este já tem gênero, tom de pele pode ser aplicado -->
+                        <button class="emoji-option" data-type="cabelo" title="Ruivo Ondulado">👩‍🦰</button>
+                        <button class="emoji-option" data-type="cabelo" title="Preto Curto">🧑‍🦱</button> <!-- Gênero neutro, bom para tons -->
+                        <button class="emoji-option" data-type="cabelo" title="Viking">🧑‍🦳</button>
+                        <button class="emoji-option" data-type="cabelo" title="Rosa Punk">🧑‍🎤</button>
+                        <button class="emoji-option clear-item" data-type="cabelo">🚫</button>
+                    </div>
+                </div>
+
+                <!-- ROUPAS -->
+                <div class="options-category">
+                    <h2>Roupas 👚</h2>
+                    <div class="items">
+                        <button class="emoji-option" data-type="roupa" title="Vestido Azul">👗</button>
+                        <button class="emoji-option" data-type="roupa" title="Conjunto Casual">👖👕</button>
+                        <button class="emoji-option" data-type="roupa" title="Vestido de Festa">💃</button>
+                        <button class="emoji-option" data-type="roupa" title="Macacão">🧥</button>
+                        <button class="emoji-option" data-type="roupa" title="Kimono">👘</button>
+                        <button class="emoji-option" data-type="roupa" title="Sari">🥻</button>
+                        <button class="emoji-option" data-type="roupa" title="Roupa de Banho">👙</button>
+                        <button class="emoji-option" data-type="roupa" title="Uniforme Escolar">🎒👚</button>
+                        <button class="emoji-option clear-item" data-type="roupa">🚫</button>
+                    </div>
+                </div>
+
+                <!-- SAPATOS -->
+                <div class="options-category">
+                    <h2>Sapatos 👟</h2>
+                    <div class="items">
+                        <button class="emoji-option" data-type="sapato" title="Salto Alto">👠</button>
+                        <button class="emoji-option" data-type="sapato" title="Tênis Esportivo">👟</button>
+                        <button class="emoji-option" data-type="sapato" title="Bota">👢</button>
+                        <button class="emoji-option" data-type="sapato" title="Sandália">👡</button>
+                        <button class="emoji-option" data-type="sapato" title="Sapatilha">🩰</button>
+                        <button class="emoji-option clear-item" data-type="sapato">🚫</button>
+                    </div>
+                </div>
+
+                <!-- MAQUIAGEM -->
+                <div class="options-category">
+                    <h2>Maquiagem 💄</h2>
+                    <div class="items">
+                        <button class="emoji-option" data-type="maquiagem" title="Batom Vermelho">💄</button>
+                        <button class="emoji-option" data-type="maquiagem" title="Olhos Brilhantes">✨</button>
+                        <button class="emoji-option" data-type="maquiagem" title="Unhas Feitas">💅</button>
+                        <button class="emoji-option" data-type="maquiagem" title="Cílios">👁️‍🗨️</button> <!-- Um pouco abstrato -->
+                        <button class="emoji-option" data-type="maquiagem" title="Rosto com Contorno">💋</button>
+                        <button class="emoji-option clear-item" data-type="maquiagem">🚫</button>
+                    </div>
+                </div>
+
+                 <!-- PROFISSÃO -->
+                 <div class="options-category">
+                    <h2>Profissão 👩‍💼</h2>
+                    <div class="items">
+                        <button class="emoji-option" data-type="profissao" title="Médica">👩‍⚕️</button>
+                        <button class="emoji-option" data-type="profissao" title="Cientista">👩‍🔬</button>
+                        <button class="emoji-option" data-type="profissao" title="Chef">👩‍🍳</button>
+                        <button class="emoji-option" data-type="profissao" title="Artista">👩‍🎨</button>
+                        <button class="emoji-option" data-type="profissao" title="Astronauta">👩‍🚀</button>
+                        <button class="emoji-option" data-type="profissao" title="Programadora">👩‍💻</button>
+                        <button class="emoji-option" data-type="profissao" title="Cantora">👩‍🎤</button> <!-- Repetido? Pode ser diferente do cabelo-->
+                        <button class="emoji-option" data-type="profissao" title="Professora">👩‍🏫</button>
+                        <button class="emoji-option clear-item" data-type="profissao">🚫</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="gerarImagemBtn">✨ Gerar Look da Alteza ✨</button>
+        <div id="imagemGeradaContainer">
+            <h3>Seu Look Gerado:</h3>
+            <!-- A imagem gerada aparecerá aqui -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
