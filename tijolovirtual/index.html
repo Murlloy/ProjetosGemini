@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-P">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIJOLO VIRTUAL™ – Construa memórias digitais</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Se for usar three.js, descomente: -->
+    <!-- <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.156.1/examples/jsm/"
+        }
+      }
+    </script> -->
+</head>
+<body>
+    <div class="container">
+        <!-- 1. Hero Section -->
+        <section id="hero" class="hero-section">
+            <img src="assets/logo.png" alt="TIJOLO VIRTUAL™ Logo" class="logo" id="logo">
+            <h1>TIJOLO VIRTUAL™</h1>
+            <p class="tagline">O único tijolo que não pesa, não quebra, mas constrói algo em você.</p>
+            <div class="brick-container-3d">
+                <!-- Para three.js, este seria o canvas. Para CSS, um div estilizado -->
+                <div id="brick-3d-css" class="brick-css-animated">
+                    <div class="face front"></div>
+                    <div class="face back"></div>
+                    <div class="face right"></div>
+                    <div class="face left"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                </div>
+            </div>
+            <button class="btn btn-gold" onclick="scrollToSection('plans')">Adquirir Tijolo</button>
+        </section>
+
+        <!-- 2. Apresentação do Produto -->
+        <section id="products" class="product-presentation">
+            <h2>Conheça Nossos Tijolos Digitais</h2>
+            <div class="product-gallery">
+                <div class="product-card">
+                    <div class="brick-preview classic"></div>
+                    <h3>Tijolo Clássico</h3>
+                    <p class="product-color">Vermelho Queimado</p>
+                    <p>O tradicional. Atemporal. Eterno.</p>
+                    <button class="btn btn-outline" onclick="show360Modal('classic')">Ver Tijolo em 360°</button>
+                </div>
+                <div class="product-card">
+                    <div class="brick-preview obsidian"></div>
+                    <h3>Tijolo Obsidiana</h3>
+                    <p class="product-color">Preto Fosco</p>
+                    <p>Para quem constrói no escuro.</p>
+                    <button class="btn btn-outline" onclick="show360Modal('obsidian')">Ver Tijolo em 360°</button>
+                </div>
+                <div class="product-card">
+                    <div class="brick-preview solar"></div>
+                    <h3>Tijolo Solar</h3>
+                    <p class="product-color">Dourado Radiante</p>
+                    <p>O mais leve e iluminado.</p>
+                    <button class="btn btn-outline" onclick="show360Modal('solar')">Ver Tijolo em 360°</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Personalização -->
+        <section id="personalization" class="personalization-section">
+            <h2>Personalize Seu Legado</h2>
+            <div class="personalization-form">
+                <label for="brick-name">Dê um nome ao seu tijolo:</label>
+                <input type="text" id="brick-name" placeholder="Ex: Meu Primeiro Tijolo">
+                <p id="brick-name-result"></p>
+                <button class="btn" id="generate-certificate-btn" onclick="generateCertificatePreview()">Gerar Certificado de Posse</button>
+            </div>
+        </section>
+
+        <!-- 4. Presentear alguém -->
+        <section id="gifting" class="gifting-section">
+            <h2>Presenteie com Propósito (ou falta dele)</h2>
+            <div class="gifting-form">
+                <label for="recipient-name">Nome do Presenteado:</label>
+                <input type="text" id="recipient-name" placeholder="Amigo Querido">
+                <label for="recipient-email">E-mail do Presenteado:</label>
+                <input type="email" id="recipient-email" placeholder="amigo@exemplo.com">
+                <button class="btn btn-gold" onclick="sendGift()">Enviar Presente Virtual</button>
+                <div id="gift-delivery-animation" class="gift-delivery-animation-hidden">
+                    <p>Enviando...</p>
+                    <div class="delivery-box">🎁</div>
+                    <p id="gift-sent-message"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Depoimentos fictícios -->
+        <section id="testimonials" class="testimonials-section">
+            <h2>O Que Dizem Nossos Construtores</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <blockquote>“Coloquei três tijolos virtuais no meu portfólio. Passei no teste psicológico da startup.”</blockquote>
+                    <cite>— Renata M.</cite>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>“É o único imóvel que consigo pagar em 2025.”</blockquote>
+                    <cite>— Bruno L.</cite>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>“Meu gato adorou olhar para o tijolo flutuante. 10/10, compraria de novo para o entretenimento felino.”</blockquote>
+                    <cite>— Carla S.</cite>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Certificação e Exclusividade -->
+        <section id="certification" class="certification-section">
+            <h2>Certificação de Autenticidade Inquestionável</h2>
+            <p>Cada TIJOLO VIRTUAL™ é uma obra de arte digital única, acompanhada de:</p>
+            <ul>
+                <li><span class="highlight">Código único SHA-256:</span> Uma string de caracteres tão única quanto suas impressões digitais (ou quase).</li>
+                <li><span class="highlight">Certificado digital .PDF:</span> Para você imprimir e emoldurar (ou apenas guardar na nuvem).</li>
+                <li><span class="highlight">Registro no Blockchain da Imaginação:</span> A tecnologia mais segura e descentralizada que existe... na sua mente.</li>
+            </ul>
+        </section>
+
+        <!-- 7. Planos e Preços -->
+        <section id="plans" class="plans-section">
+            <h2>Escolha Seu Plano de Construção</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>Tijolo Solo</h3>
+                    <p class="price">R$9</p>
+                    <ul>
+                        <li>1 tijolo nomeado</li>
+                        <li>Certificado individual</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="selectPlan('Solo')">Quero Este!</button>
+                </div>
+                <div class="plan-card popular">
+                    <span class="popular-badge">Popular</span>
+                    <h3>Muro Econômico</h3>
+                    <p class="price">R$29</p>
+                    <ul>
+                        <li>4 tijolos nomeados</li>
+                        <li>Certificado conjunto</li>
+                        <li>Acesso ao Jardim Zen (Beta)</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="selectPlan('Muro')">Quero Este!</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Fundação Eterna</h3>
+                    <p class="price">R$99</p>
+                    <ul>
+                        <li>10 tijolos nomeados</li>
+                        <li>Certificado conjunto premium</li>
+                        <li>Título de “Arquiteto Digital”</li>
+                        <li>Tijolo Voador™ (Bônus)</li>
+                    </ul>
+                    <button class="btn btn-gold" onclick="selectPlan('Fundacao')">Quero Este!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Rodapé -->
+        <footer class="footer-section">
+            <nav>
+                <a href="#policy">Política de Tijolos</a>
+                <a href="#faq">FAQ</a>
+                <a href="#support">Suporte Não Técnico</a>
+            </nav>
+            <p>"O futuro é construído com ideias. Comece com um tijolo."</p>
+            <p>© 2024 TIJOLO VIRTUAL™. Todos os direitos (não realmente) reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Modal para "Ver em 360°" -->
+    <div id="brick-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="close360Modal()">×</span>
+            <h2>Visualizador de Tijolo 360°</h2>
+            <div id="modal-brick-container">
+                <!-- Tijolo animado será injetado aqui pelo JS -->
+            </div>
+            <p>Interaja para sentir a solidez virtual.</p>
+        </div>
+    </div>
+
+    <!-- Modal/Preview do Certificado -->
+    <div id="certificate-modal" class="modal">
+        <div class="modal-content certificate-preview">
+            <span class="close-button" onclick="closeCertificateModal()">×</span>
+            <h2>Certificado de Posse</h2>
+            <div id="certificate-content">
+                <!-- Conteúdo do certificado gerado aqui -->
+            </div>
+            <button class="btn" onclick="downloadCertificate()">Baixar .PDF (Simulado)</button>
+        </div>
+    </div>
+
+    <audio id="sound-blop" src="assets/sound_blop.mp3"></audio>
+    <audio id="sound-cling" src="assets/sound_cling.mp3"></audio>
+    <audio id="sound-epic" src="assets/sound_epic.mp3"></audio>
+
+    <script src="script.js"></script>
+    
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // Cena, Câmera, Renderer
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf0f0f0); // Fundo cinza claro
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / Math.min(window.innerHeight * 0.4, 400), 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const heroBrickContainer = document.querySelector('.brick-container-3d'); // Ou onde quer que o canvas vá
+        renderer.setSize(heroBrickContainer.clientWidth, heroBrickContainer.clientHeight); // Ajustar ao container
+        heroBrickContainer.innerHTML = ''; // Limpar o placeholder CSS
+        heroBrickContainer.appendChild(renderer.domElement);
+
+        // Luz
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+
+        // Geometria do Tijolo (simples box)
+        const geometry = new THREE.BoxGeometry(2, 1, 1); // Dimensões de um tijolo
+        const material = new THREE.MeshStandardMaterial({ color: 0xCC5500 }); // Vermelho queimado
+        const brick = new THREE.Mesh(geometry, material);
+        scene.add(brick);
+
+        // Controles (opcional, para o usuário girar)
+        // const controls = new OrbitControls(camera, renderer.domElement);
+        // controls.enableZoom = true;
+        // controls.autoRotate = true; // Para rotação contínua
+
+        // Animação
+        function animate() {
+            requestAnimationFrame(animate);
+            brick.rotation.x += 0.005;
+            brick.rotation.y += 0.01;
+            // controls.update(); // se estiver usando OrbitControls com autoRotate
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsividade
+        window.addEventListener('resize', () => {
+            camera.aspect = heroBrickContainer.clientWidth / heroBrickContainer.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(heroBrickContainer.clientWidth, heroBrickContainer.clientHeight);
+        });
+
+    </script>
+   
+</body>
+</html>

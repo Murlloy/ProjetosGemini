@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Jogo da Memória</h1>
+    </header>
+
+    <main>
+        <section id="game-info">
+            <div class="score-container">
+                Pontuação: <span id="score">0</span>
+            </div>
+            <div class="timer-container">
+                Tempo: <span id="timer">00:00</span>
+            </div>
+        </section>
+
+        <section id="game-board" class="board-4x4">
+            <!-- As cartas serão geradas aqui pelo JavaScript -->
+        </section>
+
+        <section id="start-screen" class="screen active">
+            <h2>Bem-vindo!</h2>
+            <p>Encontre todos os pares antes que o tempo acabe.</p>
+            <button id="start-game-button">Iniciar Jogo</button>
+        </section>
+
+        <section id="end-screen" class="screen">
+            <div id="end-message"></div>
+            <p>Pontuação Final: <span id="final-score"></span></p>
+            <p>Tempo Utilizado: <span id="final-time"></span></p>
+            <div id="end-animation-container"></div>
+            <button id="play-again-button">Jogar Novamente</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 - Seu Nome ou Empresa</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+:root {
+    --primary-dark-bg: #0d0f25; /* Approximate dark blue */
+    --text-light: #ffffff;
+    --text-medium: #a0a3bd; /* For less prominent text */
+    --accent-blue: #4a90e2; /* From image highlights (approx) */
+    --accent-orange: #f5a623; /* From image highlights (approx) */
+    --sidebar-width: 80px;
+    --header-height: 80px;
+    --bottom-bar-height: 160px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--primary-dark-bg);
+    color: var(--text-light);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Left Sidebar --- */
+.sidebar-left {
+    width: var(--sidebar-width);
+    background-color: var(--primary-dark-bg); /* Slightly different or same */
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hamburger-menu {
+    font-size: 1.5rem;
+    color: var(--text-medium);
+    cursor: pointer;
+}
+
+.network-graphic-placeholder {
+    width: 40px; /* Adjust size */
+    height: auto;
+    opacity: 0.7;
+}
+.network-graphic-placeholder svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+.social-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-nav ul li {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.social-nav ul li a {
+    color: var(--text-medium);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.social-nav ul li a:hover {
+    color: var(--text-light);
+}
+
+/* --- Main Wrapper (Header, Hero, Footer) --- */
+.main-wrapper {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+/* --- Main Header --- */
+.main-header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: fixed; /* Fixed header */
+    top: 0;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    background-color: rgba(13, 15, 37, 0.8); /* Semi-transparent for scroll */
+    backdrop-filter: blur(5px);
+    z-index: 90;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.primary-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.primary-nav ul li {
+    margin-left: 30px;
+}
+
+.primary-nav ul li a {
+    text-decoration: none;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.primary-nav ul li a:hover,
+.primary-nav ul li a.active { /* Add .active class for current page */
+    color: var(--text-light);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions .fa-search {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-right: 25px;
+    cursor: pointer;
+}
+.header-actions .fa-search:hover {
+    color: var(--text-light);
+}
+
+.language-switcher {
+    text-decoration: none;
+    color: var(--text-medium);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.language-switcher:hover {
+    color: var(--text-light);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    flex-grow: 1; /* Takes remaining space */
+    position: relative;
+    display: flex;
+    align-items: center; /* Vertically center content if needed, but design has it top-ish */
+    padding-top: var(--header-height); /* Account for fixed header */
+    padding-left: 60px; /* Space from left */
+    overflow: hidden; /* Important for background image positioning */
+    min-height: calc(100vh - var(--bottom-bar-height));
+}
+
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.imgur.com/x0XkC8Y.jpg'); /* Replace with your image */
+    background-size: cover;
+    background-position: center right; /* Adjust as needed */
+    z-index: 1;
+    /* The orange/blue glow is part of the image, or would need complex overlays */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 500px; /* Limit width of text */
+    padding-top: 80px; /* Further push down content */
+}
+
+.hero-pagination {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.hero-pagination .dimmed {
+    color: var(--text-medium);
+}
+
+.hero-content h1 {
+    font-size: 5rem; /* Large text */
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    text-transform: none; /* Not uppercase in design */
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    font-weight: 500;
+}
+
+/* Scroll Indicator */
+.scroll-indicator-container {
+    position: absolute;
+    right: 80px;
+    bottom: 60px; /* Adjust based on bottom bar and desired position */
+    z-index: 5;
+}
+
+.scroll-indicator {
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.indicator-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.plant-icon {
+    position: absolute;
+    top: -15px; /* Position above the circle */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    /* The animated growing effect would need JS/CSS animations */
+}
+/* Simple line for the plant stem */
+.scroll-indicator::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px; /* Length of the stem */
+    background-color: rgba(255, 255, 255, 0.5);
+    bottom: calc(100% - 5px); /* Connects to bottom of circle */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1; /* Behind the icon */
+}
+
+
+/* --- Bottom Bar --- */
+.bottom-bar {
+    height: var(--bottom-bar-height);
+    background-color: rgba(19, 22, 49, 0.8); /* Slightly different dark */
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    position: fixed; /* Fixed bottom bar */
+    bottom: 0;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    z-index: 90;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.explore-now-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--text-light);
+    color: var(--primary-dark-bg);
+    padding: 15px;
+    margin-right: 30px;
+    min-width: 250px; /* Ensure it has some width */
+    cursor: pointer;
+}
+
+.explore-now-card img {
+    width: 80px; /* Adjust as needed */
+    height: auto;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.explore-text p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+
+.explore-text .fa-arrow-right {
+    font-size: 1rem;
+}
+
+.news-snippet {
+    margin-right: 30px;
+    max-width: 280px; /* Control text width */
+}
+
+.news-date {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-medium);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.news-snippet p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.news-pagination-dots {
+    margin-left: auto; /* Push to the right */
+    display: flex;
+}
+
+.news-pagination-dots span {
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-medium);
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.news-pagination-dots span.active,
+.news-pagination-dots span:hover {
+    background-color: var(--text-light);
+}
+
+
+/* Responsive considerations (very basic) */
+@media (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 4rem;
+    }
+    .scroll-indicator-container {
+        right: 40px;
+    }
+    .news-snippet {
+        max-width: 220px;
+    }
+}
+
+@media (max-width: 992px) {
+    .primary-nav {
+        display: none; /* Hide nav for simple hamburger toggle later */
+    }
+    .hero-content {
+        padding-left: 20px;
+        padding-right: 20px;
+        max-width: 100%;
+        text-align: center;
+    }
+     .hero-content h1 {
+        font-size: 3.5rem;
+    }
+    .hero-pagination {
+        text-align: center;
+    }
+    .tagline {
+        font-size: 1rem;
+    }
+    .scroll-indicator-container {
+        /* Could hide or reposition significantly */
+        bottom: 20px; /* Above bottom bar */
+        right: 20px;
+    }
+    .scroll-indicator {
+        width: 80px;
+        height: 80px;
+    }
+    .indicator-number {
+        font-size: 1.5rem;
+    }
+    .plant-icon {
+        font-size: 1.2rem;
+        top: -12px;
+    }
+    .bottom-bar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        align-items: stretch; /* Make items full width */
+    }
+    .explore-now-card {
+        margin-right: 0;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+    .news-snippet {
+        margin-right: 0;
+        margin-bottom: 15px;
+        max-width: 100%;
+        text-align: center;
+    }
+    .news-pagination-dots {
+        margin-left: 0;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 60px;
+    }
+    .main-header {
+        padding: 0 20px;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+    .hero-section {
+        padding-left: 20px;
+        min-height: calc(100vh - 100px); /* Adjust if bottom bar becomes very tall */
+    }
+     .hero-content h1 {
+        font-size: 2.8rem;
+    }
+}

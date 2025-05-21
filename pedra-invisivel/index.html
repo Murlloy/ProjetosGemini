@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedra Invisível da Sorte™ - Compre a Sua!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícone para a aba (opcional, mas dá um toque) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+</head>
+<body>
+    <div id="particle-container"></div>
+    <div class="sound-toggle">
+        <button id="soundToggleBtn">🔊</button>
+    </div>
+    <audio id="ambientSound" loop src="assets/ambient-sound.mp3"></audio> <!-- Adicione um .mp3 suave aqui -->
+
+    <header id="hero">
+        <div class="logo-container">
+            <!-- Logo chique flutuando (SVG) -->
+            <svg id="logo" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#A855F7; stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#D5B0FF; stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <text x="10" y="70" font-family="Poppins, sans-serif" font-size="30" font-weight="bold" fill="url(#logoGradient)" class="logo-text">
+                    P<tspan style="opacity:0.5;">I</tspan>S™
+                </text>
+                <path d="M5 80 Q 100 -20 195 80" stroke="rgba(255,215,0,0.3)" stroke-width="2" fill="none" class="energy-path"/>
+            </svg>
+        </div>
+        <h1>HÁ COISAS QUE OS OLHOS NÃO PODEM VER.</h1>
+        <p class="subtitle">Compre agora a Pedra Invisível da Sorte™.</p>
+        <button class="cta-button gold-button" id="buyNowHero">Quero minha pedra</button>
+        <div class="invisible-shine"></div>
+    </header>
+
+    <main>
+        <section id="benefits" class="scroll-reveal">
+            <h2>Benefícios Comprovados Pela Não-Ciência</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Foco Ampliado</h3>
+                    <p>Aumenta seu foco mental em até 42% (margem de erro de ±42%).</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="benefit-card">
+                    <h3>Eco-Invisível</h3>
+                    <p>100% zero impacto ambiental. Tão sutil que nem a natureza percebe.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="benefit-card">
+                    <h3>Fé Opcional</h3>
+                    <p>Funciona até se você não acreditar. A energia invisível não liga pra sua opinião.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="benefit-card">
+                    <h3>Portabilidade Universal</h3>
+                    <p>Compatível com todos os bolsos (literalmente, pois não ocupa espaço).</p>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="story" class="scroll-reveal">
+            <h2>A História Milenar (Resumida)</h2>
+            <div class="story-scroll">
+                <p data-reveal>Dizem as lendas sussurradas pelo vento que a primeira Pedra Invisível surgiu do sopro de um quasar adormecido...</p>
+                <p data-reveal>...viajou por éons através do vácuo cósmico, absorvendo a sabedoria silenciosa das nebulosas...</p>
+                <p data-reveal>...e finalmente materializou-se (ou melhor, desmaterializou-se) na consciência dos seres mais sortudos do universo.</p>
+                <p data-reveal>Agora, essa herança cósmica pode ser sua. Por e-mail.</p>
+            </div>
+        </section>
+
+        <section id="testimonials" class="scroll-reveal">
+            <h2>O Que Dizem Nossos Clientes (In)Visíveis</h2>
+            <div class="testimonial-card">
+                <p>“Desde que comprei, nunca mais perdi o rumo... nem a pedra, porque não dá pra ver.”</p>
+                <span>— Renato C., Mestre em Desorientação Aplicada</span>
+            </div>
+            <div class="testimonial-card">
+                <p>“É a pedra mais leve que já carreguei. Incrível. Minhas costas agradecem.”</p>
+                <span>— Luciana T., Ex-Carregadora de Cristais</span>
+            </div>
+        </section>
+
+        <section id="certification" class="scroll-reveal">
+            <h2>Certificação de Autenticidade</h2>
+            <div class="badge-container">
+                <div class="fake-badge">
+                    <span class="badge-title">INSTITUTO GLOBAL</span>
+                    <span class="badge-subtitle">DE ENERGIA INVISÍVEL</span>
+                    <span class="badge-seal">IGI</span>
+                    <span class="badge-cert">CERTIFIED 9000.1</span>
+                    <span class="badge-description">QUALIDADE ETÉREA ASSEGURADA</span>
+                </div>
+                <p>Certificada pelo Instituto Global de Energia Invisível (IGI).</p>
+            </div>
+            <div class="svg-energy-container scroll-reveal">
+                <svg viewBox="0 0 100 100" class="orbiting-energy">
+                    <circle cx="50" cy="50" r="40" stroke="rgba(255,215,0,0.5)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                    <circle cx="50" cy="50" r="3" fill="rgba(255,215,0,0.8)" class="particle p1"/>
+                    <circle cx="50" cy="50" r="2" fill="rgba(168,85,247,0.8)" class="particle p2"/>
+                </svg>
+                <p>Energia invisível circulando constantemente.</p>
+            </div>
+        </section>
+
+        <section id="plans" class="scroll-reveal">
+            <h2>Escolha Seu Nível de Sorte Invisível</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3>Starter</h3>
+                    <p class="price">R$7</p>
+                    <ul>
+                        <li>1 Pedra Invisível da Sorte™</li>
+                        <li>Entrega instantânea por e-mail</li>
+                    </ul>
+                    <button class="cta-button plan-button" data-plan="Starter">Adquirir Starter</button>
+                </div>
+                <div class="plan-card popular">
+                    <span class="popular-badge">MAIS POPULAR</span>
+                    <h3>PRO</h3>
+                    <p class="price">R$19</p>
+                    <ul>
+                        <li>3 Pedras Invisíveis da Sorte™</li>
+                        <li>PDF de Bênçãos Cósmicas</li>
+                        <li>Suporte prioritário (telepático)</li>
+                    </ul>
+                    <button class="cta-button gold-button plan-button" data-plan="PRO">Adquirir PRO</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Místico Supremo</h3>
+                    <p class="price">R$49</p>
+                    <ul>
+                        <li>5 Pedras Invisíveis da Sorte™</li>
+                        <li>Ritual exclusivo em áudio (MP3)</li>
+                        <li>Acesso ao grupo VIP de Iluminados</li>
+                    </ul>
+                    <button class="cta-button plan-button" data-plan="Místico Supremo">Adquirir Místico</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="form-section" class="scroll-reveal">
+            <h2>Receba Sua Pedra Agora!</h2>
+            <form id="invisibleStoneForm">
+                <div class="form-group">
+                    <label for="name">Nome Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Seu Melhor E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="cta-button gold-button">Receber minha pedra</button>
+                <div id="processing-animation" style="display: none;">
+                    <p>Processando energia invisível...</p>
+                    <div class="spinner"></div>
+                    <p id="processing-status"></p>
+                </div>
+                <p id="confirmation-message" style="display: none;"></p>
+            </form>
+        </section>
+
+        <section id="zen-mode-cta" class="scroll-reveal">
+            <h2>Precisa de um Momento?</h2>
+            <p>Experimente nossa página de modo zen para uma meditação com a energia da pedra.</p>
+            <a href="zen.html" target="_blank" class="cta-button">Ativar Modo Zen</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Pedra Invisível da Sorte™. Todos os direitos (in)visivelmente reservados.</p>
+        <p>Produto 100% fictício para fins de diversão e demonstração.</p>
+    </footer>
+
+    <!-- Para o efeito de explosão cósmica -->
+    <div id="cosmic-explosion-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.0.6/tsparticles.slim.bundle.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

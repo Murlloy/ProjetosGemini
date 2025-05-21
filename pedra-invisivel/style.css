@@ -1,0 +1,585 @@
+/* --- Variáveis Globais --- */
+:root {
+    --primary-purple: #A855F7; /* Roxo vibrante */
+    --secondary-purple: #7E22CE; /* Roxo mais escuro */
+    --light-purple: #D5B0FF; /* Roxo claro */
+    --gold: #FFD700;
+    --dark-gold: #B8860B;
+    --white: #FFFFFF;
+    --off-white: #F3F4F6;
+    --text-dark: #1F2937;
+    --text-light: #E5E7EB;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+}
+
+/* --- Reset Básico & Estilos Gerais --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-secondary);
+    color: var(--text-light);
+    background: linear-gradient(135deg, #23074d, #591f77, #23074d); /* Gradiente Roxo Escuro */
+    background-attachment: fixed; /* Efeito Parallax simples no fundo */
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative; /* Para o container de partículas */
+}
+
+#particle-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Atrás de todo o conteúdo */
+}
+
+/* --- Tipografia --- */
+h1, h2, h3 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    margin-bottom: 0.75em;
+    color: var(--white);
+    text-shadow: 0 0 10px rgba(200, 150, 255, 0.3);
+}
+
+h1 {
+    font-size: 2.8rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 1.5em;
+    color: var(--light-purple);
+}
+
+p {
+    margin-bottom: 1em;
+    font-size: 1rem;
+}
+
+/* --- Botões --- */
+.cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 50px; /* Mais arredondado */
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button.gold-button {
+    background: linear-gradient(45deg, var(--gold), #FFC107);
+    color: var(--text-dark);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.cta-button.gold-button:hover {
+    background: linear-gradient(45deg, #FFC107, var(--gold));
+    box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+    transform: translateY(-2px);
+}
+.cta-button.gold-button::before { /* Efeito de brilho no hover */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: all .7s ease;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translate(-50%,-50%) scale(0);
+}
+.cta-button.gold-button:hover::before {
+    transform: translate(-50%,-50%) scale(1);
+    opacity: 0;
+}
+
+.plan-button {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    border: 1px solid var(--light-purple);
+}
+.plan-button:hover {
+    background-color: var(--secondary-purple);
+    box-shadow: 0 6px 20px rgba(168,85,247,0.4);
+    transform: translateY(-2px);
+}
+
+
+/* --- Seções --- */
+section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* --- Hero Section --- */
+#hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px; /* Espaço para o logo */
+    position: relative; /* Para o brilho */
+    overflow: hidden; /* Para o brilho não sair */
+}
+
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: float 6s ease-in-out infinite;
+}
+
+#logo {
+    width: 150px;
+    height: auto;
+}
+.logo-text {
+    text-shadow: 0 0 5px var(--gold);
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, 0px); }
+    50% { transform: translate(-50%, -15px); }
+}
+.energy-path {
+    animation: dash 5s linear infinite;
+    stroke-dasharray: 20;
+    stroke-dashoffset: 100;
+}
+@keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+}
+
+#hero .subtitle {
+    font-size: 1.2rem;
+    color: var(--light-purple);
+    margin-bottom: 2em;
+}
+
+.invisible-shine {
+    position: absolute;
+    top: 0;
+    left: -100%; /* Começa fora da tela */
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 50%, /* Brilho sutil */
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg); /* Inclina o brilho */
+    animation: shine 8s linear infinite;
+    z-index: 0;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    50% { left: 150%; } /* Passa pela tela */
+    100% { left: 150%; }
+}
+
+
+/* --- Benefícios (Cards) --- */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.17);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 40px 0 rgba(126, 34, 206, 0.3);
+}
+
+.benefit-card h3 {
+    color: var(--gold);
+    margin-bottom: 0.5em;
+}
+.card-glow { /* Efeito de brilho sutil nos cards */
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0) 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* Para não interferir com o hover do card */
+}
+.benefit-card:hover .card-glow {
+    opacity: 1;
+    animation: rotateGlow 10s linear infinite;
+}
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- Story Section --- */
+#story {
+    background: rgba(0,0,0,0.1);
+    border-radius: 15px;
+}
+.story-scroll p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    opacity: 0.7;
+    transition: opacity 0.5s ease;
+}
+.story-scroll p:hover {
+    opacity: 1;
+}
+/* Efeitos de scroll reveal serão via JS */
+
+/* --- Depoimentos --- */
+.testimonial-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.testimonial-card p {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+.testimonial-card span {
+    display: block;
+    text-align: right;
+    font-weight: 600;
+    color: var(--light-purple);
+}
+
+/* --- Certificação --- */
+.badge-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.fake-badge {
+    width: 200px;
+    height: 130px;
+    background: linear-gradient(135deg, var(--gold), #DAA520);
+    color: var(--text-dark);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 0 0 5px var(--white), 0 0 0 7px var(--gold), 0 5px 10px rgba(0,0,0,0.3);
+    font-family: 'Arial Black', Gadget, sans-serif; /* Fonte mais "oficial" */
+    margin-bottom: 15px;
+    transform: rotate(-2deg); /* Levemente torto */
+}
+.fake-badge .badge-title { font-size: 16px; font-weight: bold; letter-spacing: 1px;}
+.fake-badge .badge-subtitle { font-size: 10px; }
+.fake-badge .badge-seal {
+    font-size: 28px;
+    font-weight: bold;
+    border: 2px solid var(--text-dark);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0;
+}
+.fake-badge .badge-cert { font-size: 12px; font-weight: bold;}
+.fake-badge .badge-description { font-size: 8px; text-transform: uppercase;}
+
+.svg-energy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+.orbiting-energy {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+.orbiting-energy .particle {
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+.orbiting-energy .p1 {
+    animation-name: orbit1;
+    transform-origin: 50px 50px;
+}
+.orbiting-energy .p2 {
+    animation-name: orbit2;
+    transform-origin: 50px 50px;
+    animation-duration: 5.5s;
+}
+@keyframes orbit1 {
+    from { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+}
+@keyframes orbit2 {
+    from { transform: rotate(0deg) translateX(40px) rotate(0deg) scale(0.8); }
+    to   { transform: rotate(-360deg) translateX(40px) rotate(360deg) scale(0.8); }
+}
+
+/* --- Planos --- */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.plan-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 30px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; /* Para o badge popular */
+}
+.plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(168,85,247,0.2);
+}
+.plan-card.popular {
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 25px rgba(255,215,0,0.3);
+}
+.popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.plan-card h3 {
+    color: var(--white);
+    font-size: 1.8rem;
+}
+.plan-card .price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--gold);
+    margin: 10px 0 20px;
+}
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+.plan-card ul li {
+    margin-bottom: 10px;
+    color: var(--text-light);
+}
+.plan-card ul li::before {
+    content: '✧'; /* Ou '✨' ou '✦' */
+    color: var(--gold);
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* --- Formulário --- */
+#form-section {
+    background: rgba(0,0,0,0.2);
+    padding: 40px;
+    border-radius: 15px;
+}
+#invisibleStoneForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--light-purple);
+}
+.form-group input {
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.05);
+    color: var(--white);
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+/* Animação de processamento */
+#processing-animation {
+    text-align: center;
+    margin-top: 20px;
+}
+.spinner {
+    margin: 15px auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255,255,255,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+#confirmation-message {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--gold);
+    font-weight: bold;
+}
+
+/* --- Efeito de explosão cósmica (cursor) --- */
+.cosmic-particle {
+    position: fixed; /* Usar fixed para que seja relativo à viewport */
+    border-radius: 50%;
+    pointer-events: none; /* Para não interferir com cliques */
+    z-index: 9999;
+    animation: cosmic-fade-out 0.8s forwards;
+    background: radial-gradient(circle, var(--gold) 0%, var(--primary-purple) 50%, rgba(168,85,247,0) 70%);
+}
+
+@keyframes cosmic-fade-out {
+    0% {
+        opacity: 1;
+        transform: scale(0.1);
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5) translate(calc(var(--vx) * 50px), calc(var(--vy) * 50px));
+    }
+}
+
+
+/* --- Modo Zen CTA --- */
+#zen-mode-cta {
+    text-align: center;
+}
+#zen-mode-cta p {
+    margin-bottom: 1.5em;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    opacity: 0.7;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 40px;
+}
+
+/* --- Som --- */
+.sound-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#soundToggleBtn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--white);
+    font-size: 1.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+#soundToggleBtn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    .benefits-grid, .plans-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+    #hero { padding-top: 120px; } /* Mais espaço para o logo */
+}
+
+/* Scroll Reveal (classe adicionada por JS) */
+/* .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+} */

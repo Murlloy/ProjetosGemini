@@ -1,0 +1,144 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 800px;
+    height: 500px;
+    background-color: #555;
+    border: 3px solid #222;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+#hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+.player-hud { width: 40%; }
+.player-hud .player-name { font-size: 18px; margin-bottom: 5px; }
+#player2-hud { text-align: right; }
+
+.health-bar-container {
+    width: 100%;
+    height: 25px;
+    background-color: #444;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.health-bar {
+    height: 100%;
+    width: 100%;
+    background-color: green;
+    transition: width 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+#timer { font-size: 30px; font-weight: bold; color: #ffdd00; }
+
+#arena {
+    width: 100%;
+    height: calc(100% - 70px);
+    position: relative;
+    background: linear-gradient(to bottom, #77aaff, #4477cc);
+    border-top: 2px solid #222;
+}
+
+.character {
+    /* AJUSTE ESTAS DIMENSÕES PARA O TAMANHO DOS SEUS SPRITES */
+    width: 160px;
+    height: 300px;
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    /* Para esconder o texto P1/P2 se o sprite carregar */
+    color: transparent;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Configurações para sprites */
+    background-size: contain; /* ou 'cover' ou dimensões ex: '80px 120px' */
+    background-repeat: no-repeat;
+    background-position: center bottom; /* Ajuste conforme necessário */
+
+    transition: transform 0.1s linear; /* Para virar o personagem */
+}
+
+/* Fallback de cor se o sprite não carregar (ou para debug) */
+.character:not([style*="background-image"]) {
+    border: 2px solid black; /* Mostrar borda se não houver sprite */
+    color: black; /* Mostrar P1/P2 se não houver sprite */
+}
+#player1:not([style*="background-image"]) { background-color: #ff6347; }
+#player2:not([style*="background-image"]) { background-color: #4682b4; }
+
+
+/* Estados dos Personagens (alguns controlados por JS com background-image) */
+.character.hurt { /* O piscar ainda é útil */
+    animation: hurt-flash 0.5s linear;
+}
+
+.character.ko { /* Mantém a rotação e opacidade para o estado KO */
+    /* O sprite de KO será definido via JS */
+    transform: rotate(90deg) translateY(20px) !important; /* Ajuste translateY para melhor visual */
+    opacity: 0.7;
+    transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+}
+/* Fallback de cor para KO se o sprite não carregar */
+.character.ko:not([style*="background-image"]) {
+    background-color: gray !important;
+}
+
+
+@keyframes hurt-flash {
+    0%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+}
+
+#game-over-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0.85);
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+#game-over-message h2 { margin-top: 0; font-size: 28px; }
+#game-over-message p { font-size: 18px; margin-bottom: 20px;}
+#game-over-message button {
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+#game-over-message button:hover {
+    background-color: #45a049;
+}

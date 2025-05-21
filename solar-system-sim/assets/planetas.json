@@ -1,0 +1,113 @@
+[
+  {
+    "nome": "Sol",
+    "tipo": "estrela",
+    "distanciaDoSol": 0,
+    "diametro": 1392700,
+    "periodoOrbital": 0,
+    "cor": "#FFD700",
+    "textura": "images/sun.png",
+    "luas": 0,
+    "infoDetalhada": "O Sol é a estrela no centro do Sistema Solar..."
+  },
+  {
+    "nome": "Mercúrio",
+    "tipo": "planeta",
+    "distanciaDoSol": 58,
+    "diametro": 4879,
+    "periodoOrbital": 88,
+    "cor": "#A9A9A9",
+    "textura": "images/mercury.png",
+    "luas": 0,
+    "infoDetalhada": "Mercúrio é o menor planeta e o mais próximo do Sol..."
+  },
+  {
+    "nome": "Vênus",
+    "tipo": "planeta",
+    "distanciaDoSol": 108,
+    "diametro": 12104,
+    "periodoOrbital": 225,
+    "cor": "#E6E6FA",
+    "textura": "images/venus.png",
+    "luas": 0,
+    "infoDetalhada": "Vênus é similar em tamanho à Terra, mas com uma atmosfera densa..."
+  },
+  {
+    "nome": "Terra",
+    "tipo": "planeta",
+    "distanciaDoSol": 150,
+    "diametro": 12742,
+    "periodoOrbital": 365,
+    "cor": "#2a80ff",
+    "textura": "images/earth.png",
+    "luas": 1,
+    "infoDetalhada": "A Terra é o nosso lar, o único planeta conhecido por abrigar vida."
+  },
+  {
+    "nome": "Lua",
+    "tipo": "lua",
+    "distanciaDoPlanetaMae": 0.384,
+    "diametro": 3474,
+    "periodoOrbital": 27.3,
+    "cor": "#CCCCCC",
+    "textura": "images/moon.png",
+    "planetaMae": "Terra",
+    "infoDetalhada": "A Lua é o único satélite natural da Terra."
+  },
+  {
+    "nome": "Marte",
+    "tipo": "planeta",
+    "distanciaDoSol": 228,
+    "diametro": 6779,
+    "periodoOrbital": 687,
+    "cor": "#FF5733",
+    "textura": "images/mars.png",
+    "luas": 2,
+    "infoDetalhada": "Marte, conhecido como o Planeta Vermelho..."
+  },
+  {
+    "nome": "Júpiter",
+    "tipo": "planeta",
+    "distanciaDoSol": 778,
+    "diametro": 139820,
+    "periodoOrbital": 4333,
+    "cor": "#D2B48C",
+    "textura": "images/jupiter.png",
+    "luas": 95,
+    "infoDetalhada": "Júpiter é o maior planeta do Sistema Solar..."
+  },
+  {
+    "nome": "Saturno",
+    "tipo": "planeta",
+    "distanciaDoSol": 1430,
+    "diametro": 116460,
+    "periodoOrbital": 10759,
+    "cor": "#F0E68C",
+    "textura": "images/saturn.png",
+    "luas": 146,
+    "infoDetalhada": "Saturno é famoso por seus impressionantes anéis...",
+    "aneis": true
+  },
+  {
+    "nome": "Urano",
+    "tipo": "planeta",
+    "distanciaDoSol": 2870,
+    "diametro": 50724,
+    "periodoOrbital": 30687,
+    "cor": "#AFEEEE",
+    "textura": "images/uranus.png",
+    "luas": 27,
+    "infoDetalhada": "Urano é um gigante gelado com uma inclinação axial única..."
+  },
+  {
+    "nome": "Netuno",
+    "tipo": "planeta",
+    "distanciaDoSol": 4500,
+    "diametro": 49244,
+    "periodoOrbital": 60190,
+    "cor": "#3F51B5",
+    "textura": "images/neptune.png",
+    "luas": 14,
+    "infoDetalhada": "Netuno é o planeta mais distante do Sol..."
+  }
+]

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Fighters - Módulo de Luta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- HUD -->
+        <div id="hud">
+            <div class="player-hud" id="player1-hud">
+                <div class="player-name">Player 1</div>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="player1-health"></div>
+                </div>
+            </div>
+            <div id="timer">99</div>
+            <div class="player-hud" id="player2-hud">
+                <div class="player-name">Player 2</div>
+                <div class="health-bar-container">
+                    <div class="health-bar" id="player2-health"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arena de Luta -->
+        <div id="arena">
+            <!-- Os textos P1 e P2 serão escondidos se os sprites carregarem -->
+            <div class="character" id="player1">P1</div>
+            <div class="character" id="player2">P2</div>
+        </div>
+
+        <div id="game-over-message" style="display: none;">
+            <h2>Fim de Jogo!</h2>
+            <p id="winner-message"></p>
+            <button onclick="resetGame()">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <!-- Efeitos Sonoros (adicione seus arquivos .mp3) -->
+    <audio id="sfx-punch" src="punch.mp3" preload="auto"></audio>
+    <audio id="sfx-kick" src="kick.mp3" preload="auto"></audio>
+    <audio id="sfx-hurt" src="hurt.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

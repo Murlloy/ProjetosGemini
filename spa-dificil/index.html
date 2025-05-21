@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Hábitos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dashboard de Hábitos</h1>
+            <button id="theme-toggle">🌙</button>
+        </header>
+
+        <section class="habit-adder">
+            <h2>Adicionar Novo Hábito</h2>
+            <input type="text" id="habit-input" placeholder="Ex: Beber 2L de água">
+            <button id="add-habit-btn">Adicionar Hábito +</button>
+        </section>
+
+        <section class="habits-list-section">
+            <h2>Meus Hábitos (Hoje: <span id="current-date"></span>)</h2>
+            <ul id="habits-list">
+                <!-- Hábitos serão inseridos aqui pelo JS -->
+            </ul>
+        </section>
+
+        <section class="chart-section">
+            <h2>Progresso Semanal</h2>
+            <div class="chart-container">
+                <div class="y-axis-label">Hábitos Concluídos</div>
+                <div class="chart">
+                    <!-- Barras do gráfico serão inseridas aqui -->
+                </div>
+                <div class="x-axis">
+                    <span>Dom</span>
+                    <span>Seg</span>
+                    <span>Ter</span>
+                    <span>Qua</span>
+                    <span>Qui</span>
+                    <span>Sex</span>
+                    <span>Sáb</span>
+                </div>
+            </div>
+        </section>
+                <section class="habits-list-section">
+            <div class="date-navigation">
+                <button id="prev-day-btn" title="Dia Anterior">ᐊ</button>
+                <h2>Meus Hábitos (<span id="viewed-date-display"></span>)</h2>
+                <button id="next-day-btn" title="Próximo Dia">ᐅ</button>
+            </div>
+            <ul id="habits-list">
+                <!-- Hábitos serão inseridos aqui pelo JS -->
+            </ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

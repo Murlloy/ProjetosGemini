@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥖 BreadBook – A rede social das fatias mais sociáveis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥖</text></svg>">
+    <!-- Font Awesome para ícones (opcional, pode usar SVGs ou emojis) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="app-container">
+
+        <!-- 1. Tela de Login/Cadastro (inicialmente visível) -->
+        <section id="auth-screen" class="screen active">
+            <div class="auth-container">
+                <h1>🥖 BreadBook</h1>
+                <p>Porque até o pão precisa de amigos.</p>
+
+                <form id="register-form" class="auth-form">
+                    <h2>Crie sua Fatia</h2>
+                    <label for="register-username">Nome de Usuário (ex: @fatiadopanico):</label>
+                    <input type="text" id="register-username" placeholder="@fatiadopanico" required>
+
+                    <label for="bread-type">Escolha seu tipo de pão:</label>
+                    <select id="bread-type" required>
+                        <option value="pao_de_forma">Pão de forma</option>
+                        <option value="pao_integral">Pão integral</option>
+                        <option value="brioche">Brioche</option>
+                        <option value="panetone">Fatia de panetone</option>
+                        <!-- Pão embolorado será raro, chance ao criar -->
+                    </select>
+
+                    <label for="initial-status">Status Inicial:</label>
+                    <select id="initial-status" required>
+                        <option value="Fresco">Fresco</option>
+                        <option value="Torrado">Torrado</option>
+                        <option value="Com manteiga">Com manteiga</option>
+                        <option value="Bolorento">Bolorento (se escolher)</option>
+                    </select>
+                    <button type="submit">Assar!</button>
+                    <p>Já tem uma fatia? <a href="#" id="show-login-link">Entre!</a></p>
+                </form>
+
+                <form id="login-form" class="auth-form" style="display: none;">
+                    <h2>Entrar na Padaria</h2>
+                    <label for="login-username">Nome de Usuário:</label>
+                    <input type="text" id="login-username" placeholder="@fatiadopanico" required>
+                    <button type="submit">Fatiar!</button>
+                    <p>Não tem uma fatia? <a href="#" id="show-register-link">Crie uma!</a></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Área Principal do App (inicialmente escondida) -->
+        <main id="main-app" class="screen">
+            <header>
+                <div class="logo">🥖 BreadBook</div>
+                <nav>
+                    <button data-target="home-feed-screen" class="nav-btn active-nav"><i class="fas fa-home"></i> Miolo</button>
+                    <button data-target="profile-screen" class="nav-btn"><i class="fas fa-user-circle"></i> Meu Pão</button>
+                    <button data-target="store-screen" class="nav-btn"><i class="fas fa-store"></i> Coberturas</button>
+                    <button data-target="messages-screen" class="nav-btn"><i class="fas fa-envelope"></i> Migalhas</button>
+                    <button data-target="game-screen" class="nav-btn"><i class="fas fa-cookie-bite"></i> Banho de Leite</button>
+                    <button data-target="ranking-screen" class="nav-btn"><i class="fas fa-trophy"></i> Pão Rank</button>
+                </nav>
+                <div class="header-user-controls">
+                    <button id="theme-toggle-btn">🌙</button>
+                    <span id="nav-username-display"></span>
+                    <img id="nav-user-avatar" src="assets/images/pao_de_forma.png" alt="Avatar" class="nav-avatar">
+                    <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+                </div>
+            </header>
+
+            <div id="content-area">
+                <!-- 2. Home Feed – "Miolo da Questão" -->
+                <section id="home-feed-screen" class="app-section active-section">
+                    <h2>Miolo da Questão</h2>
+                    <div class="new-post-form">
+                        <textarea id="new-post-content" placeholder="O que está fermentando na sua cabeça?"></textarea>
+                        <button id="submit-post-btn">Fatiar Pensamento!</button>
+                    </div>
+                    <div id="feed-container">
+                        <!-- Posts serão inseridos aqui via JS -->
+                    </div>
+                    <button id="load-more-posts-btn" style="display:none;">Carregar mais fatias...</button>
+                </section>
+
+                <!-- 3. Perfil do Pão -->
+                <section id="profile-screen" class="app-section">
+                    <div class="profile-card">
+                        <div class="profile-avatar-area">
+                            <div id="profile-avatar-display">
+                                <img id="profile-avatar-base-img" src="assets/images/pao_de_forma.png" alt="Avatar do Pão">
+                                <!-- Acessórios serão adicionados aqui -->
+                            </div>
+                        </div>
+                        <div class="profile-details">
+                            <h2 id="profile-username-display">@nomedopao</h2>
+                            <p><strong>Tipo:</strong> <span id="profile-bread-type-display">Pão de Forma</span></p>
+                            <p><strong>Status:</strong> <span id="profile-status-display">Fresco</span></p>
+                            <label for="profile-bio">Biografia Bizarra:</label>
+                            <textarea id="profile-bio" placeholder="Ex: Fui assado numa padaria de bairro e sonho ser rabanada."></textarea>
+                            <button id="save-bio-btn">Salvar Bio</button>
+                        </div>
+                    </div>
+                    <div class="profile-content">
+                        <h3>Minhas Postagens</h3>
+                        <div id="profile-posts-container"></div>
+                        <h3>Cesta de Pães (Amigos) - <small>Simulado</small></h3>
+                        <ul id="profile-friends-list">
+                            <li>@crocanteSupremo <button class="add-friend-dummy-btn">Adicionar à torrada</button></li>
+                            <li>@mioloMole99 <button class="add-friend-dummy-btn">Adicionar à torrada</button></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 5. Loja de Personalização – "Coberturas & Estilo" -->
+                <section id="store-screen" class="app-section">
+                    <h2>Coberturas & Estilo</h2>
+                    <p>Seus Cristais de Açúcar: <span id="user-sugar-crystals-store">0</span> 🍬</p>
+                    <div id="store-items-container">
+                        <!-- Itens da loja aqui -->
+                    </div>
+                </section>
+
+                <!-- 6. Mensagens Diretas – "Migalhas Privadas" (Simulado) -->
+                <section id="messages-screen" class="app-section">
+                    <h2>Migalhas Privadas</h2>
+                    <div class="chat-simulation">
+                        <p><strong>@CasquinhaDourada:</strong> E aí! Vi seu post sobre a torradeira, hilário! 😂</p>
+                        <input type="text" placeholder="Responder a @CasquinhaDourada...">
+                        <button>Enviar Migalha</button>
+                        <small>Atenção: muito spam pode deixar o destinatário embolorado!</small>
+                    </div>
+                </section>
+
+                <!-- 7. Banho de Leite – Mini Game -->
+                <section id="game-screen" class="app-section">
+                    <h2>Banho de Leite 🥛➡️🍞</h2>
+                    <p>Mergulhe para ganhar Cristais de Açúcar e virar rabanada (na imaginação)!</p>
+                    <button id="dip-in-milk-btn">Mergulhar!</button>
+                    <p id="game-result-text"></p>
+                    <p>Seus Cristais de Açúcar: <span id="user-sugar-crystals-game">0</span> 🍬</p>
+                </section>
+
+                <!-- 8. Pão Rank (Simulado) -->
+                <section id="ranking-screen" class="app-section">
+                    <h2>Pão Rank Semanal 🏆</h2>
+                    <div class="rank-category">
+                        <h3>Fatia Mais Popular 🧈</h3>
+                        <ul>
+                            <li>1. @GraoCelebridade (589)</li>
+                            <li>2. @PaoInfluencer (450)</li>
+                        </ul>
+                    </div>
+                    <div class="rank-category">
+                        <h3>Fatia Mais Torrada 🔥</h3>
+                        <ul>
+                            <li>1. @PolemicoPaoDoce (120)</li>
+                            <li>2. @QueimaRosca (99)</li>
+                        </ul>
+                    </div>
+                    <div class="rank-category">
+                        <h3>Fatia Mais Bizarra 🤪</h3>
+                        <ul>
+                            <li>1. @FatiaDoPanico (Com sua bio sobre rabanadas)</li>
+                            <li>2. @MiolExperimental (Aquele com mofo neon)</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Notificações Falsas -->
+        <div id="fake-notification-toast" class="notification-toast">
+            <p id="fake-notification-text"></p>
+        </div>
+    </div>
+
+    <audio id="croc-sound-effect" src="assets/sounds/croc_croc.mp3" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>

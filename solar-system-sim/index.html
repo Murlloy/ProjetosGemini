@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulação do Sistema Solar 2D</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Simulação interativa 2D do Sistema Solar com órbitas proporcionais, zoom, informações em tempo real e modo de viagem para planetas.">
+</head>
+<body>
+    <div id="simulation-container" role="application" aria-label="Simulador do Sistema Solar">
+        <div id="solar-system" aria-label="Representação visual do Sistema Solar">
+            <!-- Planetas e Sol serão injetados aqui pelo JavaScript -->
+        </div>
+    </div>
+
+    <div id="controls" role="toolbar" aria-label="Controles da Simulação">
+        <button id="toggle-pause" aria-label="Pausar/Continuar Simulação">Pausar</button>
+        <label for="time-scale">Velocidade:</label>
+        <select id="time-scale" aria-label="Seletor de velocidade da simulação">
+            <option value="1">1x</option>
+            <option value="2">2x</option>
+            <option value="5">5x</option>
+            <option value="10">10x</option>
+            <option value="100">100x</option>
+            <option value="1000">1000x</option>
+        </select>
+        <button id="reset-sim" aria-label="Resetar Simulação">Resetar</button>
+        <button id="toggle-mode" aria-label="Alternar entre modo Heliocêntrico e Foco no Planeta" style="display: none;">Voltar ao Sol</button>
+    </div>
+
+    <div id="hud" role="region" aria-label="Informações do objeto celestial selecionado" class="hidden">
+        <h2 id="hud-nome"></h2>
+        <p>Diâmetro: <span id="hud-diametro"></span> km</p>
+        <p>Distância do Sol: <span id="hud-distancia"></span> milhões de km</p>
+        <p>Período Orbital: <span id="hud-periodo"></span> dias terrestres</p>
+        <p>Luas: <span id="hud-luas"></span></p>
+        <p>Progresso Orbital: <span id="hud-progresso"></span>%</p>
+        <div id="hud-planet-details" style="display:none;">
+            <h3>Detalhes Adicionais:</h3>
+            <p id="hud-info-detalhada"></p>
+        </div>
+    </div>
+
+    <div id="tooltip" role="tooltip" class="hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

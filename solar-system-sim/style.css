@@ -1,0 +1,180 @@
+:root {
+    --bg-color: #000010;
+    --text-color: #E0E0E0;
+    --hud-bg: rgba(0, 20, 50, 0.8);
+    --hud-border: rgba(0, 120, 255, 0.7);
+    --button-bg: rgba(0, 50, 100, 0.7);
+    --button-hover-bg: rgba(0, 70, 140, 0.9);
+    --orbit-color: rgba(255, 255, 255, 0.1);
+    --sun-glow: 0 0 30px 10px gold, 0 0 50px 20px orange;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden; /* Evita barras de rolagem da página */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('assets/images/background.jpg'); /* Adicione uma imagem de estrelas */
+    background-size: cover;
+    background-position: center;
+}
+
+#simulation-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden; /* Para o zoom e pan */
+    cursor: grab;
+}
+
+#solar-system {
+    position: absolute;
+    width: 1px; /* Ponto central */
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center; /* Para zoom centrado */
+}
+
+.celestial-body {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: center center;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px; /* Para nome dentro do planeta, se quiser */
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    background-size: cover;
+    background-position: center;
+}
+
+.sun {
+    box-shadow: var(--sun-glow);
+    /* Z-index maior para garantir que o sol fique por cima das órbitas, mas planetas por cima do sol */
+    z-index: 10;
+}
+
+.planet-orbit {
+    position: absolute;
+    border: 1px dashed var(--orbit-color);
+    border-radius: 50%;
+    /* Centralizado no #solar-system */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Para não interferir com cliques nos planetas */
+    z-index: 1;
+}
+
+.planet {
+    cursor: pointer;
+    z-index: 20; /* Planetas acima das órbitas e do sol (para sombra/efeito) */
+}
+.moon {
+    z-index: 25; /* Lua acima do planeta mãe */
+}
+
+.saturn-rings {
+    position: absolute;
+    border-radius: 50%;
+    border: 5px solid rgba(210, 180, 140, 0.3); /* Cor dos anéis, ajuste a espessura */
+    box-sizing: border-box;
+    transform: translate(-50%, -50%) rotateX(60deg) rotateY(0deg); /* Perspectiva dos anéis */
+    pointer-events: none;
+    z-index: 15;
+}
+
+
+#controls {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--hud-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--hud-border);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 1000;
+}
+
+#controls button, #controls select {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--hud-border);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#controls button:hover, #controls select:hover {
+    background-color: var(--button-hover-bg);
+}
+
+#hud {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: var(--hud-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--hud-border);
+    width: 250px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+#hud.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#hud h2 {
+    margin-top: 0;
+    color: var(--hud-border);
+}
+
+#tooltip {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    pointer-events: none; /* Para não bloquear o mouse */
+    z-index: 2000;
+    white-space: nowrap;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    #hud {
+        width: 200px;
+        font-size: 0.9em;
+    }
+    #controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 90%;
+    }
+    #controls button, #controls select {
+        padding: 6px 10px;
+        margin-bottom: 5px;
+    }
+}

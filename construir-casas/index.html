@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construtor de Casas 2D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Construtor de Casas 2D</h1>
+    </header>
+    <main>
+        <aside id="piece-library-container">
+            <h2>Biblioteca de Peças</h2>
+            <div id="piece-library">
+                <!-- Peças serão inseridas aqui pelo JS -->
+            </div>
+        </aside>
+        <section id="construction-site">
+            <div id="construction-area-wrapper">
+                <div id="construction-area">
+                    <!-- Grid e peças construídas aqui -->
+                </div>
+            </div>
+            <div id="controls">
+                <button id="test-stability-btn">Testar Estabilidade</button>
+                <button id="toggle-grid-btn">Alternar Grade</button>
+                <p>Selecione uma peça no grid e pressione 'R' para rotacionar, 'Delete' para apagar.</p>
+            </div>
+        </section>
+        <aside id="hud-container">
+            <h2>Informações (HUD)</h2>
+            <div id="hud">
+                <p>Peças Usadas: <span id="hud-piece-count">0</span></p>
+                <p>Peso Total: <span id="hud-total-weight">0</span> kg</p>
+                <p>Status: <span id="hud-status">Pronto</span></p>
+                <div id="hud-messages"></div>
+                <p>Dicas: <span id="hud-tips">Selecione e arraste peças.</span></p>
+            </div>
+        </aside>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

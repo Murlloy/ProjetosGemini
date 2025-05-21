@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoastPlant 🌿</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RoastPlant <span id="plant-icon-header">🌿</span></h1>
+        </header>
+
+        <div id="plant-selection-screen">
+            <h2>Escolha sua planta:</h2>
+            <div class="plant-options">
+                <div class="plant-option" data-plant-type="cacto">
+                    <img src="assets/cacto.png" alt="Cacto Sarcástico" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="emoji-placeholder">🌵</span>
+                    <p>Cacto Sarcástico</p>
+                </div>
+                <div class="plant-option" data-plant-type="samambaia">
+                    <img src="assets/samambaia.png" alt="Samambaia Dramática" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="emoji-placeholder">🌿</span>
+                    <p>Samambaia Dramática</p>
+                </div>
+                <div class="plant-option" data-plant-type="bonsai">
+                    <img src="assets/bonsai.png" alt="Bonsai Zen-zangado" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <span class="emoji-placeholder">🌳</span>
+                    <p>Bonsai Zen-zangado</p>
+                </div>
+            </div>
+            <button id="start-button" disabled>Começar a sofrer</button>
+        </div>
+
+        <main id="plant-interaction-screen" style="display: none;">
+            <div class="plant-area">
+                <div id="speech-bubble" class="speech-bubble">
+                    <p id="plant-message">...</p>
+                </div>
+                <div class="plant-visual">
+                    <span id="plant-mood-emoji">😐</span>
+                    <img id="plant-image" src="assets/cacto.png" alt="Planta">
+                </div>
+                <p id="plant-name-display"></p>
+            </div>
+
+            <div class="actions">
+                <button id="water-button">💧 Regar</button>
+                <button id="fertilize-button">💩 Adubar</button>
+            </div>
+
+            <div class="talk-action">
+                <input type="text" id="talk-input" placeholder="Diga algo para a planta...">
+                <button id="talk-button">💬 Falar</button>
+            </div>
+            <button id="reset-plant-button">Trocar de planta (desistir)</button>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

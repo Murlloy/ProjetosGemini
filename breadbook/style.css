@@ -1,0 +1,295 @@
+/* Estilos Globais e Variáveis */
+:root {
+    --primary-bg: #fdf5e6; /* Cor de pão claro / creme */
+    --secondary-bg: #fffcf2; /* Miolo mais claro */
+    --accent-color: #d2b48c; /* Cor de casca / tan */
+    --text-color: #5a3e2b; /* Marrom escuro para texto */
+    --butter-yellow: #f8f1a7;
+    --toast-orange: #e89f40;
+    --honey-gold: #ffc857;
+    --mold-green: #8fbc8f;
+    --shadow: 0 2px 5px rgba(0,0,0,0.1);
+    --border-radius: 8px;
+    --font-main: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.dark-theme {
+    --primary-bg: #3a2e26; /* Pão queimado */
+    --secondary-bg: #2c221c;
+    --accent-color: #7a5c43;
+    --text-color: #f0e0d0;
+    --butter-yellow: #e0d98f;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#app-container {
+    width: 100%;
+    max-width: 900px;
+    background-color: var(--secondary-bg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: var(--border-radius);
+    margin: 20px;
+    overflow: hidden;
+}
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadeIn 0.3s; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Autenticação */
+.auth-container {
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: var(--primary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.auth-container h1 { color: var(--accent-color); font-size: 2.5em; }
+.auth-form label, .auth-form input, .auth-form select, .auth-form button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+}
+.auth-form input, .auth-form select {
+    border: 1px solid var(--accent-color);
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+}
+.auth-form button {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.auth-form button:hover { background-color: var(--text-color); color: var(--secondary-bg); }
+.auth-form p a { color: var(--accent-color); text-decoration: none; font-weight: bold; }
+.auth-form p a:hover { text-decoration: underline; }
+
+/* Header Principal */
+#main-app header {
+    background-color: var(--accent-color);
+    color: var(--secondary-bg);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#main-app header .logo { font-size: 1.6em; font-weight: bold; }
+#main-app header nav button {
+    background: none;
+    border: none;
+    color: var(--secondary-bg);
+    margin: 0 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s;
+}
+#main-app header nav button.active-nav,
+#main-app header nav button:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+#main-app header nav button i { margin-right: 5px; }
+
+.header-user-controls { display: flex; align-items: center; }
+.header-user-controls button, .header-user-controls span { margin-left: 10px; }
+.nav-avatar { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--secondary-bg); object-fit: cover; }
+#theme-toggle-btn, #logout-btn {
+    background: none; border: 1px solid var(--secondary-bg); color: var(--secondary-bg);
+    border-radius: 50%; width: 30px; height: 30px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+#logout-btn { border-radius: var(--border-radius); padding: 0 8px;}
+
+
+/* Área de Conteúdo e Seções */
+#content-area { padding: 20px; }
+.app-section { display: none; }
+.app-section.active-section { display: block; animation: fadeIn 0.5s; }
+
+/* Formulário de Novo Post */
+.new-post-form { margin-bottom: 20px; }
+.new-post-form textarea {
+    width: calc(100% - 22px);
+    min-height: 70px;
+    padding: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    font-family: var(--font-main);
+}
+.new-post-form button, #load-more-posts-btn {
+    background-color: var(--accent-color);
+    color: var(--secondary-bg);
+    border: none;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    display: block; /* Para #load-more-posts-btn centralizar se precisar */
+    margin: 10px auto;
+}
+.new-post-form button:hover, #load-more-posts-btn:hover {
+    background-color: var(--text-color);
+    color: var(--secondary-bg);
+}
+
+
+/* Card de Post */
+.post-card {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+.post-card .author { font-weight: bold; color: var(--accent-color); margin-bottom: 8px; display: flex; align-items: center; }
+.post-card .author img { width: 30px; height: 30px; border-radius: 50%; margin-right: 8px; border: 1px solid var(--accent-color); object-fit: cover;}
+.post-card .content { margin-bottom: 10px; line-height: 1.5; white-space: pre-wrap; }
+.post-card .actions button {
+    background: none;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    padding: 6px 10px;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 0.9em;
+}
+.post-card .actions button:hover { background-color: var(--accent-color); color: var(--secondary-bg); }
+.post-card .actions .butter-btn:hover { background-color: var(--butter-yellow); color: var(--text-color); border-color: var(--butter-yellow); }
+.post-card .actions .toast-btn:hover { background-color: var(--toast-orange); color: var(--primary-bg); border-color: var(--toast-orange); }
+.post-card .actions .honey-btn:hover { background-color: var(--honey-gold); color: var(--text-color); border-color: var(--honey-gold); }
+.post-card .actions .rot-btn:hover { background-color: var(--mold-green); color: var(--primary-bg); border-color: var(--mold-green); }
+.post-card .comments-info { font-size: 0.9em; color: #777; margin-top: 10px; }
+
+/* Perfil */
+.profile-card {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--primary-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+}
+.profile-avatar-area { flex-shrink: 0; }
+#profile-avatar-display {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--border-radius); /* Fatias são mais quadradas */
+    border: 3px solid var(--accent-color);
+    position: relative; /* Para acessórios */
+    background-color: #e0e0e0; /* Placeholder se imagem não carregar */
+    overflow: hidden; /* Para acessórios não saírem da fatia */
+}
+#profile-avatar-base-img { width: 100%; height: 100%; object-fit: contain; }
+.avatar-accessory {
+    position: absolute;
+    max-width: 70%; /* Ajuste conforme necessário */
+    max-height: 70%;
+    pointer-events: none; /* Para não interferir com cliques na base */
+}
+.profile-details { flex-grow: 1; }
+#profile-bio {
+    width: calc(100% - 22px);
+    min-height: 60px;
+    padding: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    margin-top: 5px; margin-bottom: 10px;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+}
+#save-bio-btn { /* Estilo similar a outros botões */
+    background-color: var(--accent-color); color: var(--secondary-bg); border: none;
+    padding: 8px 12px; border-radius: var(--border-radius); cursor: pointer;
+}
+.profile-content h3 { margin-top: 20px; border-bottom: 1px solid var(--accent-color); padding-bottom: 5px;}
+#profile-friends-list li button { margin-left: 10px; font-size: 0.8em; padding: 3px 6px; }
+
+/* Loja */
+#store-items-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+.store-item {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+.store-item img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px; }
+.store-item button {
+    background-color: var(--honey-gold);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.store-item button:disabled { background-color: #ccc; cursor: not-allowed; color: #777; }
+
+/* Mini Game & Mensagens & Rank (Estilos simples) */
+#game-screen button, .chat-simulation button {
+    background-color: var(--accent-color); color: var(--secondary-bg); border: none;
+    padding: 10px 15px; border-radius: var(--border-radius); cursor: pointer; margin: 10px 0;
+}
+.chat-simulation input { width: calc(100% - 22px); padding: 10px; margin-bottom: 10px; border: 1px solid var(--accent-color); border-radius: var(--border-radius); }
+.rank-category { margin-bottom: 20px; padding: 10px; background-color: var(--primary-bg); border-radius: var(--border-radius); }
+.rank-category h3 { color: var(--accent-color); }
+
+/* Notificação Toast */
+.notification-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-color);
+    color: var(--secondary-bg);
+    padding: 12px 25px;
+    border-radius: 20px; /* Formato de pílula */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s, bottom 0.5s;
+    z-index: 1000;
+    font-size: 0.9em;
+}
+.notification-toast.show {
+    opacity: 1;
+    visibility: visible;
+    bottom: 30px;
+}

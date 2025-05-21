@@ -1,0 +1,189 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    padding: 10px;
+    gap: 10px;
+}
+
+#piece-library-container, #hud-container {
+    background-color: #e0e0e0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 200px;
+}
+
+#piece-library-container {
+    flex-basis: 250px; /* Largura fixa para a biblioteca */
+    overflow-y: auto;
+}
+
+#hud-container {
+    flex-basis: 250px; /* Largura fixa para o HUD */
+}
+
+
+#construction-site {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#construction-area-wrapper {
+    flex-grow: 1;
+    overflow: auto; /* Para Pan e Zoom futuros, e se o grid for grande */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d0e0d0; /* Cor de "grama" */
+    border: 1px solid #ccc;
+}
+
+#construction-area {
+    display: grid;
+    border: 1px solid #999;
+    position: relative; /* Para posicionamento absoluto das peças */
+    background-color: #e8f5e9; /* Um verde mais claro para o terreno */
+}
+
+/* Estilo para as linhas do grid (opcional, pode ser via JS tbm) */
+.grid-cell-visual {
+    border-right: 1px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+    box-sizing: border-box;
+}
+#construction-area.grid-hidden .grid-cell-visual {
+    border: none;
+}
+
+
+/* Peças na Biblioteca */
+.library-piece {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    cursor: grab;
+    background-color: #f9f9f9;
+    user-select: none; /* Impede seleção de texto ao arrastar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.library-piece-preview {
+    border: 1px solid #333;
+    margin-top: 5px;
+    background-color: lightgray; /* Cor padrão */
+}
+
+/* Peças na Área de Construção */
+.placed-piece {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid #333; /* Borda padrão da peça */
+    background-color: lightblue; /* Cor padrão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    overflow: hidden;
+    transition: transform 0.2s ease-out, border-color 0.3s; /* Para rotação e destaque */
+}
+
+.placed-piece.selected {
+    border: 2px solid blue;
+    box-shadow: 0 0 10px rgba(0,0,255,0.5);
+}
+
+.placed-piece.unstable {
+    border: 2px dashed red !important; /* !important para sobrescrever outros estilos de borda */
+    animation: shake 0.5s infinite alternate;
+}
+
+.placed-piece.potentially-unstable {
+    border: 2px dashed orange;
+}
+
+
+@keyframes shake {
+    0% { transform: translateX(-2px); }
+    100% { transform: translateX(2px); }
+}
+
+/* Estilos específicos para tipos de peça */
+.piece-wall { background-color: #CD853F; } /* Peru */
+.piece-window { background-color: #ADD8E6; border: 2px solid #666; } /* LightBlue */
+.piece-door { background-color: #8B4513; } /* SaddleBrown */
+.piece-roof { background-color: #B22222; } /* FireBrick */
+.piece-foundation { background-color: #808080; border: 2px solid #555; } /* Gray */
+
+#controls {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#controls button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#controls button:hover {
+    background-color: #45a049;
+}
+
+#hud p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+#hud-messages {
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    min-height: 50px;
+    background-color: #f9f9f9;
+    font-size: 0.8em;
+    color: red;
+}
+
+/* ... outros estilos ... */
+
+/* Estilos específicos para tipos de peça */
+.piece-wall { background-color: #CD853F; } /* Peru */
+.piece-window { background-color: #ADD8E6; border: 2px solid #666; } /* LightBlue */
+.piece-door { background-color: #8B4513; } /* SaddleBrown */
+.piece-roof { background-color: #B22222; } /* FireBrick */
+.piece-foundation { background-color: #808080; border: 2px solid #555; } /* Gray */
+.piece-pillar { background-color: #A0522D; } /* Sienna */
+.piece-beam { background-color: #8B4513; border-top: 2px solid #5a2d0c; border-bottom: 2px solid #5a2d0c; } /* SaddleBrown com bordas para parecer viga */
+
+/* Ajuste para parede 2x1 se quiser cor diferente */
+.piece-wall[data-piece-id^="wall_2x1"] { /* Seletor de atributo para diferenciar se usar a mesma classe base */
+    /* background-color: #D2B48C; */ /* Exemplo se quiser diferenciar pela cor no CSS */
+}

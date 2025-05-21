@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR ENGARRAFADO PREMIUM™ – Respire Experiências</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #E0F2FE; /* azul-claro translúcido (ligeiramente opaco para base) */
+            --color-secondary: #A7F3D0; /* verde menta */
+            --color-accent: #FDE68A; /* dourado suave */
+            --color-text: #1F2937; /* cinza escuro para texto */
+            --color-light-text: #6B7280; /* cinza claro para texto secundário */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-sans: 'Poppins', sans-serif; /* Usando Poppins como principal sans-serif */
+            --font-inter: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #f8fafc; /* Um branco levemente acinzentado */
+            color: var(--color-text);
+            overflow-x: hidden; /* Prevenir scroll horizontal */
+        }
+
+        .font-display { font-family: var(--font-display); }
+        .font-sans { font-family: var(--font-sans); }
+        .font-inter { font-family: var(--font-inter); }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1); /* Ajuste a opacidade */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* Para Safari */
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            /* Adicionando cor de fallback caso o vídeo não carregue */
+            /* background-color: #2D3748;  <-- Movido para inline style para prioridade */
+        }
+
+        #hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.6); /* Escurecer o vídeo para o texto se destacar */
+        }
+
+        .floating-bottle-placeholder { /* Placeholder para a garrafa 3D */
+            width: 150px;
+            height: 300px;
+            background-color: rgba(224, 242, 254, 0.3); /* Cor de vidro */
+            border-radius: 60px 60px 10px 10px;
+            border: 2px solid rgba(255,255,255,0.5);
+            box-shadow: 0 0 20px rgba(224, 242, 254, 0.5);
+            margin: 20px auto;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes screenBreath {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+        .breathing-effect {
+            animation: screenBreath 5s ease-in-out infinite;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .logo-icon { 
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            fill: white; 
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--color-text);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; 
+            left: 50%;
+            margin-left: -100px; 
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .card-hover-effect {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <audio id="ambientSound" loop autoplay>
+        <source src="https://www.soundjay.com/nature/sounds/wind-howl-01.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- 1. Hero Section -->
+    <header class="hero-section" style="background-color: #2D3748;"> <!-- COR DE FALLBACK ADICIONADA AQUI -->
+        <video autoplay muted loop id="hero-video-bg">
+            <source src="https://cdn.pixabay.com/video/2020/09/08/50698-458909531_large.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5. <!-- Este texto também se beneficiará do fallback -->
+        </video>
+        <div class="relative z-10 p-8 glassmorphism rounded-lg max-w-3xl mx-auto breathing-effect">
+            <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+            
+            <h1 class="font-display text-5xl md:text-7xl font-light mb-4">Sinta o que os olhos não veem.</h1>
+            <p class="font-sans text-xl md:text-2xl mb-2">AR ENGARRAFADO PREMIUM™</p>
+            <p class="font-inter text-lg md:text-xl mb-8 text-gray-200">Direto da fonte para sua alma.</p>
+            <button id="breatheNowBtn" class="bg-[var(--color-accent)] hover:bg-yellow-300 text-gray-800 font-bold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:scale-105">
+                Respirar agora
+            </button>
+            <div id="particle-container" class="absolute inset-0 pointer-events-none">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Origens do Ar (Galeria de Experiências) -->
+        <section id="origins" class="py-16 md:py-24 bg-slate-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4 text-[var(--color-text)] reveal">Origens do Ar</h2>
+                <p class="font-inter text-lg text-[var(--color-light-text)] mb-12 max-w-2xl mx-auto reveal">Descubra as experiências sensoriais únicas que engarrafamos para você.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card Exemplo -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect reveal" data-origin-sound="patagonia.mp3">
+                        <img src="https://images.unsplash.com/photo-1500930287499-8056d3562572?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGF0YWdvbmlhfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Patagônia Selvagem" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 last:mr-0 mr-1 mb-2">🇦🇷</span>
+                            <h3 class="font-sans text-2xl font-semibold mb-2 text-[var(--color-text)]">Patagônia Selvagem</h3>
+                            <p class="font-inter text-sm text-[var(--color-light-text)]">"Notas aromáticas: frio intenso, silêncio profundo, leve toque de umidade cristalina."</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect reveal" data-origin-sound="iceland.mp3">
+                        <img src="https://images.unsplash.com/photo-1504829857797-ef010aff536b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aWNlbGFuZHxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=500&q=60" alt="Montanhas da Islândia" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-600 bg-sky-200 last:mr-0 mr-1 mb-2">🇮🇸</span>
+                            <h3 class="font-sans text-2xl font-semibold mb-2 text-[var(--color-text)]">Montanhas da Islândia</h3>
+                            <p class="font-inter text-sm text-[var(--color-light-text)]">"Notas aromáticas: pureza gélida, vento cortante, o eco do vazio primordial."</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect reveal" data-origin-sound="ibirapuera.mp3">
+                        <img src="https://images.unsplash.com/photo-1589007598769-a815c353d750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aWJpcmFwdWVyYXxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=500&q=60" alt="Parque Ibirapuera às 6h" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 bg-green-200 last:mr-0 mr-1 mb-2">🇧🇷</span>
+                            <h3 class="font-sans text-2xl font-semibold mb-2 text-[var(--color-text)]">Parque Ibirapuera às 6h</h3>
+                            <p class="font-inter text-sm text-[var(--color-light-text)]">"Notas aromáticas: orvalho matinal, terra úmida, a promessa de um dia paulistano."</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect reveal" data-origin-sound="london.mp3">
+                        <img src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bG9uZG9uJTIwY2xvdWR5fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Londres numa terça nublada" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 last:mr-0 mr-1 mb-2">🇬🇧</span>
+                            <h3 class="font-sans text-2xl font-semibold mb-2 text-[var(--color-text)]">Londres numa terça nublada</h3>
+                            <p class="font-inter text-sm text-[var(--color-light-text)]">"Notas aromáticas: umidade persistente, história no ar, um toque sutil de chá Earl Grey."</p>
+                        </div>
+                    </div>
+                     <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover-effect reveal" data-origin-sound="atacama.mp3">
+                        <img src="https://images.unsplash.com/photo-1542317505-84500c64ea66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXRhY2FtYSUyMGRlc2VydHxlbnwwfHwwfHx8MA&auto=format&fit=crop&w=500&q=60" alt="O vácuo do deserto do Atacama" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-orange-600 bg-orange-200 last:mr-0 mr-1 mb-2">🇨🇱</span>
+                            <h3 class="font-sans text-2xl font-semibold mb-2 text-[var(--color-text)]">O vácuo do deserto do Atacama</h3>
+                            <p class="font-inter text-sm text-[var(--color-light-text)]">"Notas aromáticas: secura extrema, silêncio cósmico, poeira estelar ancestral."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. O Produto -->
+        <section id="product" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-12 text-[var(--color-text)] reveal">Nossa Garrafa Exclusiva</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="md:w-1/2 reveal">
+                        <div class="floating-bottle-placeholder mx-auto relative group tooltip">
+                             <span class="tooltiptext">Esta garrafa contém ar de verdade — mas você só entenderá ao fechar os olhos.</span>
+                        </div>
+                        <div id="bottle-fill-animation-container" class="w-full h-10 bg-blue-100 rounded mt-4 mx-auto max-w-xs relative overflow-hidden">
+                            <div id="bottle-fill-progress" class="h-full bg-[var(--color-primary)] w-0 transition-all duration-1000 ease-out"></div>
+                        </div>
+
+                    </div>
+                    <div class="md:w-1/2 text-left reveal">
+                        <h3 class="font-sans text-3xl font-medium mb-4 text-[var(--color-text)]">A Arte de Engarrafar o Invisível</h3>
+                        <p class="font-inter text-lg text-[var(--color-light-text)] mb-6">
+                            Cada garrafa é um portal. Desenhada para ser tão etérea quanto o seu conteúdo,
+                            ela é mais do que um recipiente: é uma promessa de experiência. Com um design minimalista
+                            e rótulo flutuante, ela representa a pureza e a exclusividade do ar que guarda.
+                        </p>
+                        <button id="chooseAtmosphereBtn" class="bg-[var(--color-secondary)] hover:bg-green-300 text-gray-800 font-bold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:scale-105">
+                            Escolher minha atmosfera
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Benefícios -->
+        <section id="benefits" class="py-16 md:py-24 bg-[var(--color-primary)] bg-opacity-30 parallax-section" style="background-image: url('https://images.unsplash.com/photo-1536602768464-004363782986?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGxpZ2h0JTIwYWlyeSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1000&q=80');">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-12 text-[var(--color-text)] reveal">Benefícios que Transcendem</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white/70 backdrop-blur-sm p-6 rounded-lg shadow-md reveal">
+                        <div class="text-4xl mb-4 text-[var(--color-secondary)]">🌿</div>
+                        <h3 class="font-sans text-xl font-semibold mb-2">100% vegano e sem glúten</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">Respire sem preocupações, nosso ar é amigo de todos os estilos de vida.</p>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-6 rounded-lg shadow-md reveal">
+                        <div class="text-4xl mb-4 text-[var(--color-secondary)]">🧠</div>
+                        <h3 class="font-sans text-xl font-semibold mb-2">Leveza mental garantida</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">(Por você mesmo, mas nós damos o empurrãozinho sensorial).</p>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-6 rounded-lg shadow-md reveal">
+                        <div class="text-4xl mb-4 text-[var(--color-secondary)]">🌬️</div>
+                        <h3 class="font-sans text-xl font-semibold mb-2">Compatível com todos os pulmões</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">Testado em sonhadores, céticos e até em quem achava que já tinha de tudo.</p>
+                    </div>
+                    <div class="bg-white/70 backdrop-blur-sm p-6 rounded-lg shadow-md reveal">
+                        <div class="text-4xl mb-4 text-[var(--color-secondary)]">🏆</div>
+                        <h3 class="font-sans text-xl font-semibold mb-2">Maior pureza por m³ não comprovada</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">Acreditamos tanto que nem precisamos de laboratório para validar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Depoimentos poéticos -->
+        <section id="testimonials" class="py-16 md:py-24 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold text-center mb-12 text-[var(--color-text)] reveal">Vozes da Experiência</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg reveal">
+                        <p class="font-inter text-lg text-[var(--color-light-text)] italic mb-4">“Abri a garrafa e me senti na Islândia. Foi o ventilador, mas o ar tava lá.”</p>
+                        <p class="font-sans font-semibold text-[var(--color-text)]">— Fernando P.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg reveal">
+                        <p class="font-inter text-lg text-[var(--color-light-text)] italic mb-4">“Comprei para presentear minha ansiedade. Ela ficou confusa, acho que funcionou.”</p>
+                        <p class="font-sans font-semibold text-[var(--color-text)]">— Bianca R.</p>
+                    </div>
+                     <div class="bg-white p-8 rounded-lg shadow-lg reveal">
+                        <p class="font-inter text-lg text-[var(--color-light-text)] italic mb-4">“Pensei que era piada. Abri, fechei os olhos... e por um instante, o trânsito sumiu. Mágico.”</p>
+                        <p class="font-sans font-semibold text-[var(--color-text)]">— Carlos M.</p>
+                    </div>
+                     <div class="bg-white p-8 rounded-lg shadow-lg reveal">
+                        <p class="font-inter text-lg text-[var(--color-light-text)] italic mb-4">“O ar do Atacama é tão real que senti sede. Ou talvez eu já estivesse com sede. 10/10.”</p>
+                        <p class="font-sans font-semibold text-[var(--color-text)]">— Juliana S.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Certificação & Exclusividade -->
+        <section id="certification" class="py-16 md:py-24 bg-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4 text-[var(--color-text)] reveal">Certificação de Alma e Ar</h2>
+                <p class="font-inter text-lg text-[var(--color-light-text)] mb-8 max-w-3xl mx-auto reveal">
+                    "Capturado com técnicas ancestrais de respiração seletiva e um toque de magia moderna."
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto text-left">
+                    <div class="bg-slate-50 p-6 rounded-lg shadow reveal">
+                        <h3 class="font-sans text-xl font-semibold mb-2 text-[var(--color-text)]">Número de Série Único</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">Cada sopro é uma identidade, registrada para a eternidade (da garrafa).</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg shadow reveal">
+                        <h3 class="font-sans text-xl font-semibold mb-2 text-[var(--color-text)]">Data de Coleta do Ar</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">O momento exato em que a atmosfera se tornou sua. Pura nostalgia instantânea.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg shadow reveal">
+                        <h3 class="font-sans text-xl font-semibold mb-2 text-[var(--color-text)]">QR Code com Som Ambiente</h3>
+                        <p class="font-inter text-sm text-[var(--color-light-text)]">Escaneie e teletransporte-se para a origem. Fones de ouvido recomendados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Planos e Preços -->
+        <section id="pricing" class="py-16 md:py-24 bg-[var(--color-primary)] bg-opacity-30">
+            <div class="container mx-auto px-6">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold text-center mb-12 text-[var(--color-text)] reveal">Escolha Sua Experiência Respiratória</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[var(--color-accent)] text-center card-hover-effect reveal">
+                        <h3 class="font-sans text-2xl font-semibold mb-2">Atmosfera Solo</h3>
+                        <p class="font-display text-5xl font-bold mb-4 text-[var(--color-text)]">R$14</p>
+                        <ul class="font-inter text-[var(--color-light-text)] mb-6 space-y-2">
+                            <li>1 garrafa com origem à escolha</li>
+                            <li>Acesso à playlist da origem</li>
+                        </ul>
+                        <button class="w-full bg-[var(--color-accent)] hover:bg-yellow-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition duration-300">Adquirir Solo</button>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-2xl border-t-4 border-[var(--color-secondary)] text-center relative card-hover-effect reveal transform scale-105">
+                        <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-secondary)] text-gray-800 text-xs font-semibold px-3 py-1 rounded-full uppercase">Popular</span>
+                        <h3 class="font-sans text-2xl font-semibold mb-2">Brisa Dupla</h3>
+                        <p class="font-display text-5xl font-bold mb-4 text-[var(--color-text)]">R$25</p>
+                        <ul class="font-inter text-[var(--color-light-text)] mb-6 space-y-2">
+                            <li>2 garrafas (origens à escolha)</li>
+                            <li>Embalagem de presente virtual</li>
+                            <li>Acesso VIP a novos lançamentos</li>
+                        </ul>
+                        <button class="w-full bg-[var(--color-secondary)] hover:bg-green-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition duration-300">Adquirir Dupla</button>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-[var(--color-accent)] text-center card-hover-effect reveal">
+                        <h3 class="font-sans text-2xl font-semibold mb-2">Respiração Infinita™</h3>
+                        <p class="font-display text-5xl font-bold mb-4 text-[var(--color-text)]">R$49</p>
+                        <ul class="font-inter text-[var(--color-light-text)] mb-6 space-y-2">
+                            <li>4 garrafas (origens à escolha)</li>
+                            <li>Certificado de "Respirador Supremo"</li>
+                            <li>Adesivo exclusivo (digital)</li>
+                        </ul>
+                        <button class="w-full bg-[var(--color-accent)] hover:bg-yellow-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition duration-300">Adquirir Infinita</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Formulário -->
+        <section id="contact" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6 max-w-xl text-center">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4 text-[var(--color-text)] reveal">Conecte-se com o Essencial</h2>
+                <p class="font-inter text-lg text-[var(--color-light-text)] mb-8 reveal">Você deseja inspirar algo novo?</p>
+                <form class="space-y-6 reveal">
+                    <div>
+                        <label for="name" class="sr-only">Nome</label>
+                        <input type="text" name="name" id="name" placeholder="Seu nome etéreo" class="w-full px-4 py-3 rounded-lg border-gray-300 focus:border-[var(--color-secondary)] focus:ring focus:ring-[var(--color-secondary)] focus:ring-opacity-50 transition duration-300">
+                    </div>
+                    <div>
+                        <label for="email" class="sr-only">E-mail</label>
+                        <input type="email" name="email" id="email" placeholder="Seu e-mail para receber inspirações" class="w-full px-4 py-3 rounded-lg border-gray-300 focus:border-[var(--color-secondary)] focus:ring focus:ring-[var(--color-secondary)] focus:ring-opacity-50 transition duration-300">
+                    </div>
+                    <button type="submit" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 transform hover:scale-105">
+                        Enviar meu ar para casa (ou mente)
+                    </button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- 9. Extras Interativos (JS) & Ideia para Viralizar (Conceitual) -->
+        <section id="interactive-extras" class="py-16 md:py-24 bg-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="font-display text-4xl md:text-5xl font-semibold mb-4 text-[var(--color-text)] reveal">Mais que Ar, uma Experiência</h2>
+                <p class="font-inter text-lg text-[var(--color-light-text)] mb-8 max-w-2xl mx-auto reveal">
+                    Interaja, compartilhe e colecione suas atmosferas.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-md reveal">
+                        <h3 class="font-sans text-2xl font-semibold mb-3 text-[var(--color-text)]">Envie um Sopro Digital</h3>
+                        <p class="font-inter text-[var(--color-light-text)] mb-4">
+                            Surpreenda um amigo com uma experiência respiratória virtual. Eles receberão um link personalizado para "abrir" uma garrafa digital e sentir um gostinho da magia.
+                        </p>
+                        <button id="sendDigitalPuffBtn" class="bg-[var(--color-secondary)] hover:bg-green-300 text-gray-800 font-semibold py-2 px-5 rounded-lg transition duration-300">Compartilhar um Sopro</button>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-lg shadow-md reveal">
+                        <h3 class="font-sans text-2xl font-semibold mb-3 text-[var(--color-text)]">Sua Coleção de Ares</h3>
+                        <p class="font-inter text-[var(--color-light-text)] mb-4">
+                            A cada "atmosfera" escolhida, adicione-a à sua coleção pessoal guardada em seu navegador. Reviva suas experiências quando quiser. (Requer interação com os planos acima)
+                        </p>
+                        <div id="airCollectionDisplay" class="mt-2 text-sm text-gray-600">
+                            <p>Sua coleção está vazia. Comece a respirar!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 reveal">
+                     <h3 class="font-sans text-2xl font-semibold mb-3 text-[var(--color-text)]">Unboxing Experience Virtual</h3>
+                     <p class="font-inter text-[var(--color-light-text)] mb-4 max-w-xl mx-auto">
+                        Ao "comprar" um ar, visualize uma animação 3D da garrafa sendo aberta, liberando um sopro virtual e o som ambiente da origem. (Conceitual - exigiria Three.js / animação avançada)
+                     </p>
+                     <button id="virtualUnboxingBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-5 rounded-lg transition duration-300">Simular Unboxing (Em breve)</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-8 bg-gray-800 text-center text-gray-400 font-inter">
+        <p>© 2024 AR ENGARRAFADO PREMIUM™. Todos os direitos (e suspiros) reservados.</p>
+        <p class="text-xs mt-1">Uma experiência imaginada com carinho.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.utils.toArray('.reveal').forEach(element => {
+                gsap.fromTo(element, 
+                    { opacity: 0, y: 50 }, 
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 0.8, 
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: element,
+                            start: 'top 85%', 
+                            toggleActions: 'play none none none', 
+                        }
+                    }
+                );
+            });
+
+            const particleContainer = document.getElementById('particle-container');
+            if (particleContainer) {
+                for (let i = 0; i < 30; i++) {
+                    let particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = `${Math.random() * 5 + 2}px`;
+                    particle.style.height = particle.style.width;
+                    particle.style.backgroundColor = 'rgba(224, 242, 254, 0.5)'; 
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    particle.style.pointerEvents = 'none';
+                    particleContainer.appendChild(particle);
+
+                    gsap.to(particle, {
+                        x: () => (Math.random() - 0.5) * 200,
+                        y: () => (Math.random() - 0.5) * 200,
+                        opacity: 0,
+                        duration: Math.random() * 5 + 5,
+                        repeat: -1,
+                        ease: "linear",
+                        delay: Math.random() * 5
+                    });
+                }
+            }
+
+            const breatheNowBtn = document.getElementById('breatheNowBtn');
+            const chooseAtmosphereBtn = document.getElementById('chooseAtmosphereBtn');
+            const bottleFillProgress = document.getElementById('bottle-fill-progress');
+
+            function fillBottle() {
+                if (bottleFillProgress) {
+                    bottleFillProgress.style.width = '0%'; 
+                    setTimeout(() => {
+                        bottleFillProgress.style.width = '100%';
+                    }, 100);
+                    setTimeout(() => {
+                         bottleFillProgress.style.width = '0%';
+                    }, 2000);
+                }
+            }
+            if (breatheNowBtn) breatheNowBtn.addEventListener('click', fillBottle);
+            if (chooseAtmosphereBtn) chooseAtmosphereBtn.addEventListener('click', fillBottle);
+
+            const originCards = document.querySelectorAll('#origins .card-hover-effect');
+            const ambientAudio = document.getElementById('ambientSound');
+
+            originCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const soundFile = card.dataset.originSound;
+                    if (soundFile && ambientAudio) {
+                        alert(`Som ambiente da origem: ${soundFile} (Implementação do áudio pendente)`);
+                    }
+                });
+            });
+
+            const airCollection = JSON.parse(localStorage.getItem('airCollection')) || [];
+            const airCollectionDisplay = document.getElementById('airCollectionDisplay');
+
+            function updateAirCollectionDisplay() {
+                if (!airCollectionDisplay) return;
+                if (airCollection.length === 0) {
+                    airCollectionDisplay.innerHTML = '<p>Sua coleção está vazia. Comece a respirar!</p>';
+                } else {
+                    airCollectionDisplay.innerHTML = '<strong>Sua Coleção:</strong><ul class="list-disc list-inside">' +
+                        airCollection.map(air => `<li>${air}</li>`).join('') +
+                        '</ul>';
+                }
+            }
+            updateAirCollectionDisplay(); 
+
+            document.querySelectorAll('#pricing button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const planTitle = e.target.closest('div').querySelector('h3').textContent;
+                    if (!airCollection.includes(planTitle)) {
+                        airCollection.push(planTitle);
+                        localStorage.setItem('airCollection', JSON.stringify(airCollection));
+                        updateAirCollectionDisplay();
+                        alert(`${planTitle} adicionado à sua coleção de ares! (Verifique a seção 'Sua Coleção')`);
+                    } else {
+                        alert(`${planTitle} já está na sua coleção!`);
+                    }
+                });
+            });
+
+            const sendDigitalPuffBtn = document.getElementById('sendDigitalPuffBtn');
+            if (sendDigitalPuffBtn) {
+                sendDigitalPuffBtn.addEventListener('click', () => {
+                    const friendEmail = prompt("Digite o e-mail do seu amigo para enviar um sopro digital:");
+                    if (friendEmail) {
+                        alert(`Um link com uma experiência respiratória virtual seria enviado para ${friendEmail}. (Funcionalidade de envio real não implementada)`);
+                    }
+                });
+            }
+            
+            const virtualUnboxingBtn = document.getElementById('virtualUnboxingBtn');
+            if(virtualUnboxingBtn) {
+                virtualUnboxingBtn.addEventListener('click', () => {
+                    alert("Imagine aqui uma bela animação 3D da garrafa abrindo e um som de 'pssshhhh' seguido pelo som ambiente da origem! (Requer Three.js e mais assets)");
+                });
+            }
+        });
+    </script>
+</body>
+</html>

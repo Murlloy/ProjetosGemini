@@ -1,0 +1,242 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdf6e3; /* Bege claro (Solarized Light) */
+    color: #657b83; /* Solarized base00 */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha ao topo para o caso de conteúdo maior */
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+header h1 {
+    color: #2aa198; /* Cyan */
+    margin-bottom: 30px;
+}
+
+/* Plant Selection Screen */
+#plant-selection-screen h2 {
+    margin-bottom: 20px;
+    color: #586e75; /* Solarized base01 */
+}
+
+.plant-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.plant-option {
+    border: 2px solid transparent;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px; /* Garante que não fiquem muito esmagados */
+}
+
+.plant-option:hover {
+    border-color: #b58900; /* Yellow */
+    transform: translateY(-5px);
+}
+
+.plant-option.selected {
+    border-color: #2aa198; /* Cyan */
+    background-color: #eee8d5; /* Solarized base2 */
+}
+
+.plant-option img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.plant-option .emoji-placeholder {
+    font-size: 40px;
+    display: none; /* Escondido por padrão, aparece se a imagem falhar */
+    margin-bottom: 10px;
+}
+
+.plant-option p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #586e75;
+}
+
+#start-button {
+    background-color: #268bd2; /* Blue */
+    color: white;
+}
+#start-button:disabled {
+    background-color: #93a1a1; /* Solarized base1 */
+    cursor: not-allowed;
+}
+
+
+/* Plant Interaction Screen */
+.plant-area {
+    margin-bottom: 30px;
+    position: relative; /* Para o balão de fala */
+}
+
+.plant-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Espaço para o balão de fala */
+}
+
+#plant-mood-emoji {
+    font-size: 2.5em;
+    margin-bottom: -10px; /* Sobrepõe um pouco a imagem */
+    z-index: 1;
+    display: block; /* Garante que o margin-bottom funcione bem */
+}
+
+#plant-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    display: block; /* Para centralizar e evitar espaço extra */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#plant-name-display {
+    font-weight: bold;
+    color: #cb4b16; /* Orange */
+    margin-top: 5px;
+}
+
+.speech-bubble {
+    background-color: #eee8d5; /* Solarized base2 */
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    min-height: 40px; /* Para não colapsar quando vazio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #93a1a1;
+    position: relative; /* Para o "rabicho" */
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.speech-bubble p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Rabicho do balão */
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* Posição abaixo do balão */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #93a1a1; /* Mesma cor da borda */
+    transition: border-top-color 0.5s ease;
+}
+
+
+/* Cores do humor */
+.speech-bubble.mood-happy { background-color: #d2f5d2; border-color: #859900; /* Green */}
+.speech-bubble.mood-happy::after { border-top-color: #859900; }
+
+.speech-bubble.mood-neutral { background-color: #fff3cd; border-color: #b58900; /* Yellow */}
+.speech-bubble.mood-neutral::after { border-top-color: #b58900; }
+
+.speech-bubble.mood-annoyed { background-color: #f8d7da; border-color: #dc3545; /* Red */}
+.speech-bubble.mood-annoyed::after { border-top-color: #dc3545; }
+
+.speech-bubble.mood-furious { background-color: #e4c4c7; border-color: #8b0000; /* DarkRed */}
+.speech-bubble.mood-furious::after { border-top-color: #8b0000; }
+
+
+.actions {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background-color: #859900; /* Green */
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+button:active {
+    transform: scale(0.95);
+}
+
+.actions button, .talk-action button {
+    flex-grow: 1; /* Faz os botões ocuparem espaço similar */
+}
+
+
+.talk-action {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.talk-action input[type="text"] {
+    flex-grow: 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+#reset-plant-button {
+    background-color: #6c757d; /* Gray */
+    margin-top: 20px;
+}
+
+/* Responsividade básica */
+@media (max-width: 480px) {
+    .plant-options {
+        flex-direction: column; /* Empilha as opções em telas pequenas */
+    }
+    .actions {
+        flex-direction: column;
+    }
+    .talk-action {
+        flex-direction: column;
+    }
+    .talk-action input[type="text"] {
+        margin-bottom: 10px;
+    }
+}

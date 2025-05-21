@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Dado</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center; /* Para centralizar o H1 e o contador */
+        }
+
+        .result-display {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            min-height: 40px; /* Para evitar que o layout pule ao mostrar o primeiro resultado */
+        }
+
+        .dice-container {
+            margin-bottom: 30px;
+        }
+
+        .dice {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-out; /* Animação suave */
+        }
+
+        .dice-face {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .dot {
+            width: 20px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 50%;
+            align-self: center;
+            justify-self: center;
+            display: none; /* Começam escondidos, o JS/CSS mostra os corretos */
+        }
+
+        .face-1 { grid-template-areas: ". . ." ". c ." ". . ."; }
+        .face-2 { grid-template-areas: "tl . ." ". . ." ". . br"; }
+        .face-3 { grid-template-areas: "tl . ." ". c ." ". . br"; }
+        .face-4 { grid-template-areas: "tl . tr" ". . ." "bl . br"; }
+        .face-5 { grid-template-areas: "tl . tr" ". c ." "bl . br"; }
+        .face-6 { grid-template-areas: "tl . tr" "ml . mr" "bl . br"; }
+
+        .face-1 .c,
+        .face-2 .tl, .face-2 .br,
+        .face-3 .tl, .face-3 .c, .face-3 .br,
+        .face-4 .tl, .face-4 .tr, .face-4 .bl, .face-4 .br,
+        .face-5 .tl, .face-5 .tr, .face-5 .c, .face-5 .bl, .face-5 .br,
+        .face-6 .tl, .face-6 .tr, .face-6 .ml, .face-6 .mr, .face-6 .bl, .face-6 .br {
+            display: block;
+        }
+
+        .dot.tl { grid-area: tl; }
+        .dot.tr { grid-area: tr; }
+        .dot.ml { grid-area: ml; }
+        .dot.mr { grid-area: mr; }
+        .dot.bl { grid-area: bl; }
+        .dot.br { grid-area: br; }
+        .dot.c  { grid-area: c;  }
+
+        .roll-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: black;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Adicionado para separar do dado */
+        }
+
+        .roll-button:hover {
+            background-color: #333;
+        }
+
+        .roll-button:active {
+            background-color: #555;
+            transform: translateY(1px);
+        }
+
+        .roll-counter-display {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="resultDisplay" class="result-display">Gire o dado!</h1>
+
+    <div class="dice-container">
+        <div id="dice" class="dice">
+            <div id="diceFaceDisplay" class="dice-face face-1">
+                <!-- Os pontos são apenas marcadores de posição, o CSS os controla -->
+                <span class="dot tl"></span><span class="dot tr"></span>
+                <span class="dot ml"></span><span class="dot c"></span><span class="dot mr"></span>
+                <span class="dot bl"></span><span class="dot br"></span>
+            </div>
+        </div>
+    </div>
+
+    <button id="rollButton" class="roll-button">Girar o Dado</button>
+
+    <p id="rollCounterDisplay" class="roll-counter-display">Giros: 0</p>
+
+    <script>
+        const diceElement = document.getElementById('dice');
+        const diceFaceDisplayElement = document.getElementById('diceFaceDisplay');
+        const rollButton = document.getElementById('rollButton');
+        const resultDisplayElement = document.getElementById('resultDisplay'); // Novo
+        const rollCounterDisplayElement = document.getElementById('rollCounterDisplay'); // Novo
+
+        let rollCount = 0; // Novo: contador de giros
+
+        // Função para mostrar a face correta do dado (apenas visual)
+        function showDiceFace(number) {
+            // Remove todas as classes de face anteriores e adiciona a nova
+            diceFaceDisplayElement.className = 'dice-face'; // Reseta para a classe base
+            diceFaceDisplayElement.classList.add(`face-${number}`);
+            // O CSS cuida de mostrar os pontos corretos baseados na classe 'face-X'
+        }
+
+        function rollDice() {
+            rollButton.disabled = true; // Desabilita o botão durante a animação
+
+            // Adiciona uma animação de "giro"
+            diceElement.style.transform = 'rotate(0deg) scale(1)'; // Reseta a rotação e escala
+            let currentRotation = 0;
+            const animationDuration = 750; // Duração total da animação em ms
+            const rotationSteps = 30; // Quantos passos de rotação
+            const stepDuration = animationDuration / (rotationSteps * 2); // Gira e "para"
+
+            const spinInterval = setInterval(() => {
+                currentRotation += 360 / (rotationSteps / 2) ; // Ajuste para giros mais rápidos
+                diceElement.style.transform = `rotate(${currentRotation}deg) scale(0.9)`;
+
+                if (currentRotation >= 360 * 2) { // Gira algumas vezes
+                    clearInterval(spinInterval);
+                    diceElement.style.transform = 'rotate(0deg) scale(1)'; // Volta ao normal
+
+                    // Gera um número aleatório entre 1 e 6
+                    const randomNumber = Math.floor(Math.random() * 6) + 1;
+
+                    // Atualiza a face do dado
+                    showDiceFace(randomNumber);
+
+                    // Atualiza o H1 com o resultado
+                    resultDisplayElement.textContent = `Resultado: ${randomNumber}`;
+
+                    // Incrementa e atualiza o contador de giros
+                    rollCount++;
+                    rollCounterDisplayElement.textContent = `Giros: ${rollCount}`;
+
+                    rollButton.disabled = false; // Reabilita o botão
+                }
+            }, stepDuration);
+        }
+
+        rollButton.addEventListener('click', rollDice);
+
+        // Mostrar uma face inicial (ex: face 1) ao carregar
+        showDiceFace(1);
+        // Você pode optar por mostrar "Resultado: 1" ou deixar a mensagem inicial no H1
+        // resultDisplayElement.textContent = "Resultado: 1"; // Opcional
+    </script>
+
+</body>
+</html>

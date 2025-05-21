@@ -1,0 +1,289 @@
+/* Variáveis */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #ecf0f1;
+    --card-bg: #fff;
+    --card-border: #bdc3c7;
+    --text-color: #2c3e50;
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+    --warning-color: #f39c12;
+    --font-family: 'Arial', sans-serif;
+}
+
+/* Reset básico e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: var(--primary-color);
+}
+
+main {
+    width: 100%;
+    max-width: 600px; /* Limita a largura máxima do conteúdo do jogo */
+}
+
+/* Informações do Jogo (Pontuação e Timer) */
+#game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 1.1em;
+}
+
+.score-container, .timer-container {
+    padding: 5px 10px;
+}
+
+#score {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#timer {
+    font-weight: bold;
+    color: var(--warning-color);
+}
+
+/* Tabuleiro do Jogo */
+#game-board {
+    display: grid;
+    gap: 10px; /* Espaçamento entre as cartas */
+    perspective: 1000px; /* Para o efeito 3D da virada */
+}
+
+.board-4x4 {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+/* Para o modo difícil (opcional)
+.board-6x6 {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+*/
+
+.card {
+    background-color: transparent;
+    aspect-ratio: 1 / 1; /* Mantém as cartas quadradas */
+    border-radius: 8px;
+    cursor: pointer;
+    transform-style: preserve-3d; /* Mantém os filhos em espaço 3D */
+    transition: transform 0.6s;
+    position: relative; /* Para posicionar card-front e card-back */
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    cursor: default;
+    opacity: 0.7; /* Opcional: Feedback visual para pares encontrados */
+    /* Poderia adicionar uma borda verde aqui também */
+    box-shadow: 0 0 10px var(--success-color);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Esconde o lado de trás do elemento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.card-front {
+    background-color: var(--primary-color); /* Cor do verso da carta */
+    background-image: url('../images/card-back.png'); /* Imagem do verso da carta */
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-back {
+    background-color: var(--card-bg);
+    transform: rotateY(180deg); /* Verso da carta já está "virado" */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+}
+
+
+/* Telas de Início e Fim */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: none; /* Inicialmente escondidas */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.screen p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.screen button {
+    padding: 12px 25px;
+    font-size: 1.2em;
+    color: white;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.screen button:hover {
+    background-color: #27ae60; /* Darken do secondary-color */
+}
+
+#end-message {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#end-message.win {
+    color: var(--success-color);
+    animation: pulse 1s infinite;
+}
+
+#end-message.lose {
+    color: var(--error-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+#end-animation-container img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+
+/* Animações */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+
+/* Responsividade */
+@media (max-width: 600px) {
+    #game-board {
+        gap: 5px;
+    }
+
+    .card-back img {
+        max-width: 60%;
+        max-height: 60%;
+    }
+
+    #game-info {
+        font-size: 1em;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .screen h2 {
+        font-size: 2em;
+    }
+    .screen p {
+        font-size: 1em;
+    }
+    .screen button {
+        font-size: 1em;
+    }
+}
+
+footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+/* ... (outros estilos CSS permanecem os mesmos) ... */
+
+.card-back {
+    background-color: var(--card-bg);
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Adiciona um tamanho de fonte responsivo para os emojis/desenhos */
+    font-size: clamp(24px, 7vw, 50px); /* Min 24px, ideal 7% da largura da viewport, max 50px */
+    color: var(--text-color); /* Cor do emoji/texto */
+    /* user-select: none; /* Para evitar que o emoji seja selecionado acidentalmente */
+}
+
+/* Se você não estiver usando imagens para os desenhos, esta regra não é necessária.
+   Comente ou remova-a.
+*/
+/*
+.card-back img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+}
+*/
+
+/* ... (restante do CSS permanece o mesmo) ... */

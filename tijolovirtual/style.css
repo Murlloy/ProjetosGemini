@@ -1,0 +1,531 @@
+:root {
+    --color-primary: #D4AF37; /* Dourado */
+    --color-secondary: #333333; /* Preto Fosco */
+    --color-background: #f8f8f8; /* Cinza Claro */
+    --color-text: #2c2c2c;
+    --color-brick-red: #B7410E; /* Vermelho Queimado (Tom de tijolo premium™) */
+    --color-brick-obsidian: #1A1A1A;
+    --color-brick-solar: var(--color-primary);
+    --font-primary: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+section:last-of-type {
+    border-bottom: none;
+}
+
+h1, h2, h3 {
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 50px; /* Apple-like rounded buttons */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-gold {
+    background-color: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn-gold:hover {
+    background-color: #c09a29;
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-background) 100%);
+}
+
+.logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.tagline {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.brick-container-3d {
+    width: 300px; /* Adjust as needed */
+    height: 150px; /* Adjust as needed */
+    margin: 30px auto;
+    perspective: 1000px; /* For CSS 3D effect */
+}
+
+/* CSS Animated Brick (Placeholder for three.js) */
+.brick-css-animated {
+    width: 200px;
+    height: 100px;
+    position: relative;
+    margin: 20px auto;
+    transform-style: preserve-3d;
+    animation: spin 15s infinite linear, float 6s infinite ease-in-out;
+}
+
+.brick-css-animated .face {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    background-color: var(--color-brick-red);
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 100px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+}
+/* Faces do Tijolo CSS 3D */
+.brick-css-animated .front  { transform: translateZ(25px); }
+.brick-css-animated .back   { transform: rotateY(180deg) translateZ(25px); }
+.brick-css-animated .right  { transform: rotateY(90deg) translateZ(100px); width: 50px; }
+.brick-css-animated .left   { transform: rotateY(-90deg) translateZ(100px); width: 50px; }
+.brick-css-animated .top    { transform: rotateX(90deg) translateZ(50px); height: 50px; }
+.brick-css-animated .bottom { transform: rotateX(-90deg) translateZ(50px); height: 50px; }
+
+
+@keyframes spin {
+    from { transform: rotateY(0deg) rotateX(10deg); }
+    to   { transform: rotateY(360deg) rotateX(10deg); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotateY(0deg) rotateX(10deg); }
+    50%      { transform: translateY(-20px) rotateY(180deg) rotateX(10deg); }
+}
+
+
+/* Product Presentation */
+.product-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.product-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+.brick-preview {
+    width: 150px;
+    height: 75px;
+    margin: 0 auto 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.brick-preview.classic { background-color: var(--color-brick-red); }
+.brick-preview.obsidian { background-color: var(--color-brick-obsidian); }
+.brick-preview.solar { background-color: var(--color-brick-solar); }
+.product-color {
+    font-style: italic;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Personalization & Gifting */
+.personalization-form, .gifting-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+}
+input[type="text"], input[type="email"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+#brick-name-result {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    min-height: 25px; /* Para não pular layout */
+}
+
+.gift-delivery-animation-hidden {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.gift-delivery-animation-visible {
+    display: block;
+    opacity: 1;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #e6f7ff;
+    border-left: 5px solid var(--color-primary);
+}
+.delivery-box {
+    font-size: 3rem;
+    animation: deliverBox 1.5s ease-in-out forwards;
+    opacity: 0;
+}
+@keyframes deliverBox {
+    0% { transform: translateX(-100px) scale(0.5); opacity: 0; }
+    50% { transform: translateX(0) scale(1.2); opacity: 1; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+
+/* Testimonials */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.testimonial-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    border-left: 5px solid var(--color-primary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.testimonial-card blockquote {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin: 0 0 15px 0;
+    color: #555;
+}
+.testimonial-card cite {
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+/* Certification */
+.certification-section ul {
+    list-style: none;
+    padding: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+}
+.certification-section li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    padding-left: 30px;
+    position: relative;
+}
+.certification-section li::before {
+    content: '✔️';
+    color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+.highlight {
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+/* Plans */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.plan-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For popular badge */
+}
+.plan-card h3 {
+    color: var(--color-primary);
+}
+.plan-card .price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+    margin: 10px 0 20px 0;
+}
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    flex-grow: 1; /* Pushes button to bottom */
+}
+.plan-card li {
+    margin-bottom: 10px;
+}
+.plan-card li::before {
+    content: '✓';
+    color: var(--color-primary);
+    margin-right: 10px;
+    font-weight: bold;
+}
+.popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-secondary);
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Footer */
+.footer-section {
+    background-color: var(--color-secondary);
+    color: #ccc;
+    padding: 40px 20px;
+    text-align: center;
+}
+.footer-section nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+.footer-section nav a:hover {
+    color: var(--color-primary);
+}
+.footer-section p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalOpen 0.5s ease-out;
+}
+@keyframes modalOpen {
+    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+.close-button:hover,
+.close-button:focus {
+    color: var(--color-secondary);
+    text-decoration: none;
+    cursor: pointer;
+}
+#modal-brick-container {
+    height: 200px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.modal-brick-animated { /* Similar to hero brick, but can be different */
+    width: 150px;
+    height: 75px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: spin 10s infinite linear; /* Just spin, no float needed for modal usually */
+}
+/* Faces do Tijolo no Modal */
+.modal-brick-animated .face {
+    position: absolute;
+    width: 150px;
+    height: 75px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+}
+.modal-brick-animated .front  { transform: translateZ(18.75px); } /* 75px / 4 */
+.modal-brick-animated .back   { transform: rotateY(180deg) translateZ(18.75px); }
+.modal-brick-animated .right  { transform: rotateY(90deg) translateZ(75px); width: 37.5px; } /* 150px / 2 */
+.modal-brick-animated .left   { transform: rotateY(-90deg) translateZ(75px); width: 37.5px; }
+.modal-brick-animated .top    { transform: rotateX(90deg) translateZ(37.5px); height: 37.5px; } /* 75px / 2 */
+.modal-brick-animated .bottom { transform: rotateX(-90deg) translateZ(37.5px); height: 37.5px; }
+
+.certificate-preview {
+    text-align: left;
+    border: 5px solid var(--color-primary);
+    background: #fffcf2; /* Creamy background for certificate */
+}
+.certificate-preview h2 {
+    text-align: center;
+    border-bottom: 2px solid var(--color-primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.certificate-preview p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+.certificate-preview strong {
+    color: var(--color-secondary);
+}
+#certificate-signature {
+    margin-top: 30px;
+    text-align: right;
+    font-style: italic;
+}
+
+/* Modo Noturno (Básico) - Ativado por JS */
+body.dark-mode {
+    --color-background: #1e1e1e;
+    --color-text: #e0e0e0;
+    --color-secondary: #f0f0f0; /* Texto principal escuro vira claro */
+    --color-brick-red: #A33A0C; /* Escurece um pouco */
+}
+body.dark-mode .hero-section {
+    background: linear-gradient(180deg, #2a2a2a 0%, var(--color-background) 100%);
+}
+body.dark-mode .product-card,
+body.dark-mode .personalization-form,
+body.dark-mode .gifting-form,
+body.dark-mode .testimonial-card,
+body.dark-mode .plan-card,
+body.dark-mode .modal-content {
+    background-color: #2c2c2c;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+body.dark-mode .testimonial-card {
+    border-left-color: var(--color-primary);
+}
+body.dark-mode .certification-section li::before {
+    color: var(--color-primary);
+}
+body.dark-mode .footer-section {
+    background-color: #121212;
+    color: #aaa;
+}
+body.dark-mode .footer-section nav a {
+    color: #aaa;
+}
+/* Tijolo com brilho de presença no modo noturno */
+body.dark-mode .brick-css-animated .face,
+body.dark-mode .modal-brick-animated .face {
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 0 15px var(--color-primary); /* Adiciona brilho */
+}
+body.dark-mode #logo {
+    filter: invert(1) hue-rotate(180deg) brightness(1.5); /* Tenta inverter o logo para dark mode */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; }
+    .hero-section { min-height: 70vh; padding-top: 80px; }
+    .brick-container-3d { width: 250px; height: 125px; }
+    .brick-css-animated { width: 150px; height: 75px; }
+    .brick-css-animated .face { width: 150px; height: 75px; }
+    .brick-css-animated .front  { transform: translateZ(18.75px); }
+    .brick-css-animated .back   { transform: rotateY(180deg) translateZ(18.75px); }
+    .brick-css-animated .right  { transform: rotateY(90deg) translateZ(75px); width: 37.5px; }
+    .brick-css-animated .left   { transform: rotateY(-90deg) translateZ(75px); width: 37.5px; }
+    .brick-css-animated .top    { transform: rotateX(90deg) translateZ(37.5px); height: 37.5px; }
+    .brick-css-animated .bottom { transform: rotateX(-90deg) translateZ(37.5px); height: 37.5px; }
+
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Zen - Pedra Invisível</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a0e34, #3c165b);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            text-align: center;
+        }
+        .breathing-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .breathing-bubble {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, rgba(168, 85, 247, 0.1) 70%);
+            border-radius: 50%;
+            animation: breathe 8s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3), 0 0 60px rgba(255, 215, 0, 0.2) inset;
+            position: relative;
+        }
+        .breathing-bubble::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 20%;
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+        .breathing-text {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: fadeText 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        @keyframes fadeText {
+            0%, 100% { content: "Inspire..."; opacity: 0; }
+            25% { content: "Inspire..."; opacity: 1; }
+            49% { opacity: 0; }
+            50% { content: "Expire..."; opacity: 0; }
+            75% { content: "Expire..."; opacity: 1; }
+            99% { opacity: 0; }
+        }
+        .close-zen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .close-zen:hover {
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="javascript:window.close();" class="close-zen" title="Fechar Modo Zen">Fechar X</a>
+    <div class="breathing-container">
+        <div class="breathing-bubble"></div>
+        <p class="breathing-text">Inspire...</p>
+    </div>
+</body>
+</html>
